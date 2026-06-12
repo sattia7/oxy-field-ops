@@ -622,8 +622,11 @@ const I18N = {
   // Trainer Dashboard
   trainerDashboard: { en:'Trainer Dashboard', ar:'لوحة تحكم المدرب' },
   newTraineeDetected: { en:'New trainee detected!', ar:'تم اكتشاف متدرب جديد!' },
-  liveSync: { en:'Live Sync', ar:'مزامنة مباشرة' },
+  cloudConnected: { en:'Cloud Connected', ar:'متصل بالسحابة' },
   offlineMode: { en:'Offline Mode', ar:'وضع عدم الاتصال' },
+  syncingData: { en:'Refreshing data...', ar:'جاري تحديث البيانات...' },
+  syncComplete: { en:'Data refreshed!', ar:'تم تحديث البيانات!' },
+  refreshData: { en:'Refresh', ar:'تحديث' },
   overview: { en:'Overview', ar:'نظرة عامة' },
   users: { en:'Users', ar:'المستخدمون' },
   analytics: { en:'Analytics', ar:'تحليلات' },
@@ -1880,19 +1883,34 @@ function syncPush(path, data) {
   db.ref(`${DB_ROOT}/${path}`).set(data).catch(() => {});
 }
 
-function syncListen(path, callback) {
-  if (!syncEnabled || !db) return function(){};
-  const ref = db.ref(`${DB_ROOT}/${path}`);
-  const handler = snap => {
-    const val = snap.val();
-    if (val !== null && val !== undefined) {
-      syncPaused = true;
-      callback(val);
-      syncPaused = false;
-    }
-  };
-  ref.on('value', handler);
-  return function() { ref.off('value', handler); };
+function pullRemoteData(callback) {
+  if (!syncEnabled || !db) { if (callback) callback(); return; }
+  showToast(t('syncingData') || 'Syncing data...', 'info');
+  const paths = [
+    { path: 'users', lsKey: 'aiFieldOpsUsers' },
+    { path: 'states', lsKey: 'aiFieldOpsStates' },
+    { path: 'activeGroup', lsKey: 'aiFieldOpsActiveGroup' },
+    { path: 'activities', lsKey: 'aiFieldOpsActivities' },
+    { path: 'archivedGroups', lsKey: 'aiFieldOpsArchivedGroups' }
+  ];
+  let completed = 0;
+  paths.forEach(item => {
+    db.ref(`${DB_ROOT}/${item.path}`).once('value').then(snap => {
+      const val = snap.val();
+      if (val !== null && val !== undefined) {
+        localStorage.setItem(item.lsKey, JSON.stringify(val));
+      }
+      completed++;
+      if (completed === paths.length) {
+        showToast(t('syncComplete') || 'Data refreshed!', 'success');
+        if (state.view === 'trainer') renderTrainerDashboard();
+        if (callback) callback();
+      }
+    }).catch(() => {
+      completed++;
+      if (completed === paths.length && callback) callback();
+    });
+  });
 }
 
 // Auto-init after DOM ready
@@ -2620,25 +2638,10 @@ function renderTrainerDashboard() {
   const tab = window._trainerTab || 'overview';
   const user = getCurrentUser();
 
-  // Real-time cross-device sync: listen for new trainees joining
-  if (window._trainerSyncOff) { window._trainerSyncOff.forEach(fn => fn()); }
-  window._trainerSyncOff = [];
-  if (syncEnabled) {
-    const prevUserCount = getUsers().filter(u => u.role !== 'trainer').length;
-    window._trainerSyncOff.push(syncListen('users', val => {
-      if (!val) return;
-      localStorage.setItem('aiFieldOpsUsers', JSON.stringify(val));
-      const newCount = val.filter(u => u.role !== 'trainer').length;
-      if (newCount > prevUserCount) {
-        showToast(`🆕 ${t('newTraineeDetected') || 'New trainee detected!'}`, 'success');
-      }
-      if (state.view === 'trainer') renderTrainerDashboard();
-    }));
-    window._trainerSyncOff.push(syncListen('states', val => {
-      if (!val) return;
-      localStorage.setItem('aiFieldOpsStates', JSON.stringify(val));
-      if (state.view === 'trainer') renderTrainerDashboard();
-    }));
+  // Auto-fetch fresh data from cloud when trainer opens dashboard
+  if (syncEnabled && !window._trainerDataPulled) {
+    window._trainerDataPulled = true;
+    pullRemoteData();
   }
 
   let content = '';
@@ -2657,9 +2660,12 @@ function renderTrainerDashboard() {
           <p class="text-[11px] text-gray-400">${user?user.name:t('aiTrainer')} • ${user?getPositionDisplay(user.position):''}</p>
         </div>
         <div class="flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-bold ${syncEnabled?'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30':'bg-gray-700/50 text-gray-400 border border-gray-600/30'}">
-          <span class="w-1.5 h-1.5 rounded-full ${syncEnabled?'bg-emerald-400 animate-pulse':'bg-gray-500'}"></span>
-          ${syncEnabled?t('liveSync'):t('offlineMode')}
+          <span class="w-1.5 h-1.5 rounded-full ${syncEnabled?'bg-emerald-400':'bg-gray-500'}"></span>
+          ${syncEnabled?t('cloudConnected'):t('offlineMode')}
         </div>
+        ${syncEnabled?`<button onclick="pullRemoteData()" class="px-2 py-1 rounded-md text-[10px] font-bold bg-field-accent/15 text-field-accent border border-field-accent/30 hover:bg-field-accent/25 transition">
+          <i class="fa-solid fa-rotate mr-1"></i>${t('refreshData') || 'Refresh'}
+        </button>`:''}
       </div>
 
       <!-- Tabs -->
