@@ -98,20 +98,6 @@
       scroll-snap-align: center;
     }
 
-    .certificate {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border: 2px solid rgba(245, 158, 11, 0.4);
-      position: relative;
-    }
-    .certificate::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(245,158,11,0.05) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(245,158,11,0.05) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
     .tool-body {
       max-height: 0;
       overflow: hidden;
@@ -512,7 +498,6 @@ const I18N = {
   capsTitle: { en:'AI Capabilities', ar:'قدرات الذكاء الاصطناعي' },
   aiorhumanTitle: { en:'AI or Human?', ar:'ذكاء اصطناعي أم بشر؟' },
   safetyTitle: { en:'AI Safety Rules', ar:'قواعد سلامة الذكاء الاصطناعي' },
-  casestudyTitle: { en:'Case Study', ar:'دراسة حالة' },
   promptTitle: { en:'Prompt Engineering', ar:'هندسة الأوامر' },
   groupTitle: { en:'Group Challenge', ar:'تحدي المجموعة' },
   speedroundTitle: { en:'Speed Round', ar:'جولة السرعة' },
@@ -592,22 +577,8 @@ const I18N = {
   passed: { en:'PASSED!', ar:'ناجح!' },
   notYet: { en:'Not Yet', ar:'ليس بعد' },
   retryQuiz: { en:'Retry Quiz', ar:'إعادة الاختبار' },
-  claimCert: { en:'Claim Certificate & Exit', ar:'احصل على الشهادة واخرج' },
   backToHub: { en:'Back to Hub', ar:'العودة للرئيسية' },
-  youEarnedCert: { en:'You earned your Level 1 certificate!', ar:'لقد حصلت على شهادة المستوى الأول!' },
-  needMore: { en:'You need 8/12 to pass. Replay and retry!', ar:'تحتاج 8/12 للنجاح. أعد المحاولة!' },
-
-  // Certificate
-  certTitle: { en:'Certificate of Completion', ar:'شهادة إتمام' },
-  certMainTitle: { en:'AI Field Ops Readiness', ar:'الجاهزية للذكاء الاصطناعي الميداني' },
-  certAwareness: { en:'AI Awareness', ar:'الوعي بالذكاء الاصطناعي' },
-  certThis: { en:'This certifies that', ar:'تشهد هذه الشهادة بأن' },
-  certCompleted: { en:'has successfully completed the AI Field Ops Awareness Hub', ar:'أتم بنجاح مركز الوعي بالذكاء الاصطناعي الميداني' },
-  certDate: { en:'Date', ar:'التاريخ' },
-  downloadCert: { en:'Download Certificate', ar:'تحميل الشهادة' },
-  certPlaceholder: { en:'Enter your name', ar:'أدخل اسمك' },
-  defaultCertName: { en:'Field Engineer', ar:'مهندس ميداني' },
-  certDownloaded: { en:'Certificate downloaded!', ar:'تم تحميل الشهادة!' },
+  needMore: { en:'You need 7/12 to pass. Replay and retry!', ar:'تحتاج 7/12 للنجاح. أعد المحاولة!' },
 
   // Trainer Dashboard
   trainerDashboard: { en:'Trainer Dashboard', ar:'لوحة تحكم المدرب' },
@@ -692,6 +663,7 @@ const I18N = {
   noUsersToArchive: { en:'No users to archive', ar:'لا يوجد مستخدمين للأرشفة' },
   groupArchived: { en:'Group {id} archived! Now on {name}', ar:'تمت أرشفة المجموعة {id}! الآن {name}' },
   csvExported: { en:'📊 CSV files exported for {count} users!', ar:'📊 تم تصدير ملفات CSV لـ {count} مستخدم!' },
+  exportSuccess: { en:'Export successful', ar:'تم التصدير بنجاح' },
   csvUsersHeader: { en:'ID,Name,Avatar,Position,Role,Group,Created,Points,Completed,Badges,QuizScore,Streak,LoginCount,LastActive', ar:'المعرف,الاسم,الصورة,المنصب,الدور,المجموعة,تاريخ الإنشاء,النقاط,المكتمل,الشارات,درجة الاختبار,السلسلة,عدد تسجيلات الدخول,آخر نشاط' },
   csvMissionHeader: { en:'UserID,UserName,Mission,Status,Score,ScoreMax,Attempts,CompletedDate', ar:'معرف المستخدم,اسم المستخدم,المهمة,الحالة,الدرجة,الحد الأقصى,المحاولات,تاريخ الإكمال' },
   csvActivityHeader: { en:'ActivityID,UserID,UserName,Type,Details,Points,Timestamp', ar:'معرف النشاط,معرف المستخدم,اسم المستخدم,النوع,التفاصيل,النقاط,الطابع الزمني' },
@@ -703,7 +675,6 @@ const I18N = {
   reportFilenamePrefix: { en:'AI_FieldOps_Report', ar:'تقرير_عمليات_الذكاء_الاصطناعي' },
   groupReportFilenamePrefix: { en:'AI_FieldOps_Group_Report', ar:'تقرير_مجموعة_الذكاء_الاصطناعي' },
   multiGroupReportFilename: { en:'AI_FieldOps_MultiGroup_Report', ar:'تقرير_مجموعات_الذكاء_الاصطناعي' },
-  certFilenamePrefix: { en:'AI_FieldOps_Certificate', ar:'شهادة_الذكاء_الاصطناعي_الميداني' },
   groupReportGenerated: { en:'📄 Report generated for {count} users!', ar:'📄 تم توليد تقرير لـ {count} مستخدم!' },
   noUserData: { en:'No user data to report', ar:'لا توجد بيانات مستخدم للتقرير' },
   noUserDataGroup: { en:'No user data for group report', ar:'لا توجد بيانات مستخدم لتقرير المجموعة' },
@@ -732,13 +703,6 @@ const I18N = {
   youKnowLingoLabel: { en:'You know the lingo.', ar:'أنت تعرف المصطلحات.' },
   reviewAgain: { en:'Review Again', ar:'مراجعة مرة أخرى' },
 
-  // Case Study
-  caseStudyTitle: { en:'Case Study: Bearing Failure Prediction', ar:'دراسة حالة: التنبؤ بفشل المحامل' },
-  asLeadEngineer: { en:'As lead engineer, what is your best first move?', ar:'كمهندس رئيسي، ما هي أفضل خطوة أولى؟' },
-  solidCall: { en:'Solid Call!', ar:'قرار صائب!' },
-  thinkAgain: { en:'Think Again', ar:'فكر مرة أخرى' },
-  caseComplete: { en:'Case Study Complete!', ar:'اكتملت دراسة الحالة!' },
-
   // Profile positions
   fieldEngineer: { en:'Field Engineer', ar:'مهندس ميداني' },
   productionEngineer: { en:'Production Engineer', ar:'مهندس إنتاج' },
@@ -765,7 +729,6 @@ const I18N = {
   mythbusterDesc: { en:'Scored 6+ in Myth Buster.', ar:'حقق 6+ في محطم الأساطير.' },
   jargonmasterDesc: { en:'Completed AI Jargon Buster.', ar:'أكمل محطم مصطلحات الذكاء الاصطناعي.' },
   aispotterDesc: { en:'Scored 4+ in Spot the AI.', ar:'حقق 4+ في اكتشف الذكاء الاصطناعي.' },
-  casesolverDesc: { en:'Passed the Bearing Case Study.', ar:'اجتاز دراسة حالة المحامل.' },
   promptengDesc: { en:'Completed Prompt Engineering mission.', ar:'أكمل مهمة هندسة الأوامر.' },
   safetyexpertDesc: { en:'Scored 4+ in Safety Rules quiz.', ar:'حقق 4+ في اختبار قواعد السلامة.' },
   fieldaiDesc: { en:'Completed the Group Challenge.', ar:'أكمل تحدي المجموعة.' },
@@ -778,7 +741,6 @@ const I18N = {
   correctSpot: { en:'Correct — Sharp Eye!', ar:'صحيح — عين حادة!' },
   correctSpotAI: { en:'Correct — AI Spotter!', ar:'صحيح — مكتشف الذكاء الاصطناعي!' },
   correctSafety: { en:'Correct — Safe Call!', ar:'صحيح — قرار آمن!' },
-  correctCase: { en:'Correct — Decision', ar:'صحيح — قرار' },
   correctQuiz: { en:'Quiz Correct', ar:'إجابة صحيحة' },
   missionCompletePts: { en:'Mission Complete', ar:'اكتملت المهمة' },
   keyTakeaways: { en:'🎯 Key Takeaways', ar:'🎯 النقاط الرئيسية' },
@@ -811,7 +773,7 @@ const I18N = {
   thirteenMissions: { en:'13 Missions', ar:'13 مهمة' },
   fromAIMyths: { en:'From AI myths to the final quiz — learn what matters in the field.', ar:'من أساطير الذكاء الاصطناعي إلى الاختبار النهائي — تعلم ما يهم في الميدان.' },
   handsOnLearning: { en:'Hands-On Learning', ar:'تعلم عملي' },
-  bustMythsDesc: { en:'Bust myths, spot real AI, solve a real case study, build prompts, and explore field tools.', ar:'حطم الأساطير، اكتف الذكاء الاصطناعي الحقيقي، حل دراسة حالة حقيقية، ابنِ أوامر، واستكشف أدوات الميدان.' },
+  bustMythsDesc: { en:'Bust myths, spot real AI, build prompts, and explore field tools.', ar:'حطم الأساطير، اكتف الذكاء الاصطناعي الحقيقي، ابنِ أوامر، واستكشف أدوات الميدان.' },
   earnPointsBadges: { en:'Earn Points & Badges', ar:'اربح النقاط والشارات' },
   scorePointsDesc: { en:'Score points on every mission, unlock 10 badges, and build your streak.', ar:'حصل على نقاط في كل مهمة، افتح 10 شارات، وابنِ تتابعك.' },
   getCertified: { en:'Get Certified', ar:'احصل على الشهادة' },
@@ -931,13 +893,12 @@ const I18N = {
   capsDesc: { en:'See, Predict, Suggest—three superpowers.', ar:'رؤية، تنبؤ، اقتراح—ثلاث قوى خارقة.' },
   aiorhumanDesc: { en:'Can you tell AI from human-written reports?', ar:'هل يمكنك التمييز بين تقارير الذكاء الاصطناعي والبشر؟' },
   safetyDesc: { en:'5 golden rules + Safe/Not Safe quiz.', ar:'5 قواعد ذهبية + اختبار آمن/غير آمن.' },
-  casestudyDesc: { en:'Walk through a real incident where AI won.', ar:'تجول عبر حادثة حقيقية حيث فاز الذكاء الاصطناعي.' },
   promptDesc: { en:'Turn bad prompts into powerful ones.', ar:'حول الأوامر السيئة إلى أوامر قوية.' },
   aitoolsDesc: { en:'Vote on 5 real AI field scenarios. Would you use this?', ar:'صوّت على 5 سيناريوهات حقيقية للذكاء الاصطناعي في الميدان. هل ستستخدم هذا؟' },
   groupDesc: { en:'Generate the best AI question as a team.', ar:'ولد أفضل سؤال للذكاء الاصطناعي كفريق.' },
   speedroundDesc: { en:'60-second rapid-fire! How many can you get?', ar:'إطلاق سريع في 60 ثانية! كم يمكنك الإجابة؟' },
   wishDesc2: { en:'Share the AI tool you want most.', ar:'شارك أداة الذكاء الاصطناعي التي تريدها أكثر.' },
-  finalDesc: { en:'12 questions. Pass and earn your certificate.', ar:'12 سؤال. اجتاز واحصل على شهادتك.' },
+  finalDesc: { en:'12 questions. Pass to complete the workshop!', ar:'12 سؤال. اجتاز لإكمال الورشة!' },
 
   // Myth Buster
   mythLabel: { en:'MYTH', ar:'أسطورة' },
@@ -975,14 +936,6 @@ const I18N = {
   scenarioLabel: { en:'SCENARIO', ar:'سيناريو' },
   nextScenario: { en:'Next Scenario', ar:'السيناريو التالي' },
 
-  // Case Study
-  caseClosed: { en:'Case Closed!', ar:'تم إغلاق الحالة!' },
-  decisionsCorrect: { en:'Decisions correct:', ar:'القرارات الصحيحة:' },
-  replayToSharpen: { en:'Replay to sharpen your decision-making.', ar:'أعد اللعب لتحسين قراراتك.' },
-  replayCase: { en:'Replay Case', ar:'إعادة الحالة' },
-  chapterLabel: { en:'CHAPTER', ar:'فصل' },
-  nextChapter: { en:'Next Chapter', ar:'الفصل التالي' },
-
   // Prompt Engineering
   pumpIssueDefault: { en:'pump issue?', ar:'مشكلة المضخة؟' },
   vagueNoRole: { en:'Vague, no role, no context, no expected format.', ar:'غامض، لا دور، لا سياق، لا تنسيق متوقع.' },
@@ -1006,8 +959,8 @@ const I18N = {
 
   // Badges extras
   safetyExpertBadgeEarned: { en:'Safety Expert Badge Earned!', ar:'تم كسب شارة خبير السلامة!' },
-  caseSolverBadgeEarned: { en:'Case Solver Badge Earned!', ar:'تم كسب شارة حل الحالات!' },
   aiDetectiveBadgeEarned: { en:'AI Detective Badge Earned!', ar:'تم كسب شارة محقق الذكاء الاصطناعي!' },
+  downloadPocketCard: { en:'Download your AI pocket card', ar:'تحميل بطاقة الذكاء الاصطناعي الجيبية' },
 
   // Toasts & Misc
   ptsDashReason: { en:'+{n} pts — {reason}', ar:'+{n} نقطة — {reason}' },
@@ -1051,8 +1004,6 @@ const I18N = {
   spottedCorrectly: { en:'Spotted Correctly', ar:'تم التعرف بشكل صحيح' },
   correctSharpEye: { en:'Sharp Eye', ar:'عين حادة' },
   safetyJudgmentCorrect: { en:'Safety Judgment Correct', ar:'حكم السلامة صحيح' },
-  caseStudyPassed: { en:'Case Study Passed', ar:'تم اجتياز دراسة الحالة' },
-  goodDecision: { en:'Good Decision', ar:'قرار جيد' },
   customPromptWritten: { en:'Custom prompt written', ar:'تم كتابة أمر مخصص' },
   wroteImprovedPrompt: { en:'Wrote improved prompt', ar:'تم كتابة أمر محسن' },
   teamChallengeDonePts: { en:'Team Challenge Done', ar:'تم تحدي الفريق' },
@@ -1064,13 +1015,11 @@ const I18N = {
   mythBusterTitle: { en:'Myth Buster', ar:'محطّم الأساطير' },
   jargonMasterTitle: { en:'Jargon Master', ar:'خبير المصطلحات' },
   safetyExpertTitle: { en:'Safety Expert', ar:'خبير السلامة' },
-  caseSolverTitle: { en:'Case Solver', ar:'حل الحالات' },
   promptEngineerTitle: { en:'Prompt Engineer', ar:'مهندس الأوامر' },
   fieldAIOperatorTitle: { en:'Field AI Operator', ar:'مشغل الذكاء الاصطناعي الميداني' },
   fieldAIGraduateTitle: { en:'Field AI Graduate', ar:'خريج الذكاء الاصطناعي الميداني' },
 
   // Badge descriptions
-  caseSolverDesc: { en:'Passed the Bearing Case Study.', ar:'تم اجتياز دراسة حالة المحامل.' },
   fieldAIOperatorDesc: { en:'Completed the Group Challenge.', ar:'تم إكمال تحدي المجموعة.' },
   fieldAIGraduateDesc: { en:'Passed the Final Quiz.', ar:'تم اجتياز الاختبار النهائي.' },
   jargonBusterDesc: { en:'Completed AI Jargon Buster.', ar:'تم إكمال كاشف مصطلحات الذكاء الاصطناعي.' },
@@ -1110,6 +1059,9 @@ const I18N = {
   aiDetectiveTitle: { en:'AI Detective', ar:'محقق الذكاء الاصطناعي' },
   promptEngineeringMasterPts: { en:'Prompt Engineering Master', ar:'خبير هندسة الأوامر' },
   ideaSubmittedPts: { en:'Idea Submitted', ar:'تم إرسال الفكرة' },
+  groupWishlist: { en:'Group Wishlist', ar:'قائمة أمنيات المجموعة' },
+  exportCSV: { en:'Export CSV', ar:'تصدير CSV' },
+  noWishesYet: { en:'No wishes submitted yet.', ar:'لم تُرسل أمنيات بعد.' },
   roleExample: { en:'You are a senior rotating equipment engineer.', ar:'أنت مهندس معدات دوارة أول.' },
   contextExample: { en:'A centrifugal pump at Station 3B has rising vibration (6.2 mm/s RMS) and discharge pressure fluctuating ±8%.', ar:'مضخة طرد مركزي في المحطة 3B تعاني من ارتفاع الاهتزاز (6.2 مم/ث RMS) وتقلب ضغط التفريغ ±8%.' },
   expectedOutputExample: { en:'List the top 3 probable root causes, recommended diagnostic tests, and whether safe continued operation is possible.', ar:'اذكر أعلى 3 أسباب جذرية محتملة، والاختبارات التشخيصية الموصى بها، وما إذا كان التشغيل الآمن المستمر ممكناً.' },
@@ -1141,7 +1093,6 @@ const I18N = {
   mostCompletedMissionDesc: { en:'of {total} users completed this mission. This topic resonated strongly.', ar:'من أصل {total} مستخدم أكملوا هذه المهمة. هذا الموضوع لاقى صدى قوياً.' },
   groupReportGeneratedSuccess: { en:'👥 Group report generated!', ar:'👥 تم توليد تقرير المجموعة!' },
   activityBreakdownChart: { en:'Activity Breakdown', ar:'تفصيل النشاط' },
-  reviewNeeded: { en:'Review Needed', ar:'بحاجة للمراجعة' },
   noGroup: { en:'No group selected', ar:'لم يتم اختيار مجموعة' },
 
   // AI Tools in Action
@@ -1341,7 +1292,7 @@ const QUIZ = [
   { q: "What is a 'hallucination' in AI?", options: ["A hardware fault", "AI making up a wrong answer", "A camera glitch", "A sensor alarm"], a: 1, explain: "Hallucination is when AI generates confident but false information. Always verify critical AI outputs." },
   { q: "Which describes 'Edge AI'?", options: ["AI in the cloud", "AI running on local devices", "AI at headquarters", "AI in training"], a: 1, explain: "Edge AI runs on local sensors or devices, enabling real-time decisions without internet latency." },
 ];
-
+const QUIZ_PASSING_SCORE = Math.round(QUIZ.length * 0.6); // 60% passing
 
 const MOCK_WISHES = [
   "AI that reads gauge faces automatically through my phone camera",
@@ -1387,96 +1338,6 @@ const JARGON = [
   { term: "Hallucination", field: "When AI makes up an answer that sounds right but is wrong.", example: "AI inventing a maintenance step that doesn't exist in the official procedure." },
   { term: "Digital Twin", field: "A virtual copy of your equipment that runs simulations.", example: "Testing a startup sequence on a virtual compressor before touching the real one." },
 ];
-
-/* ---- NEW: Case Study ---- */
-const CASE_STUDY = {
-  title: "The Bearing That Spoke",
-  steps: [
-    {
-      story: "Monday 06:00 — Shift handover notes Pump P-101 is 'a bit noisy lately.' The AI dashboard shows vibration trending up (4.2 → 5.8 mm/s) over 3 days, but still below the 7.0 alarm limit.",
-      question: "As lead engineer, what is your best first move?",
-      choices: [
-        { text: "Ignore it — it's below alarm", correct: false, consequence: "By Wednesday the bearing seizes, causing an unplanned shutdown and $120K in lost production. The AI saw the trend; the alarm only saw the limit." },
-        { text: "Schedule ultrasonic inspection this week", correct: true, consequence: "Correct! Proactive inspection catches bearing wear early, preventing unplanned downtime and costly repairs." },
-        { text: "Emergency shutdown now", correct: false, consequence: "You lose 48 hours of production. The bearing was degrading but still had days of safe life. Predictive action beats reactive panic." }
-      ]
-    },
-    {
-      story: "Tuesday 09:00 — Ultrasonic inspection confirms inner race damage. The AI predicts failure within 5–7 days. You have a planned maintenance window on Thursday.",
-      question: "What do you do?",
-      choices: [
-        { text: "Wait for the planned window", correct: true, consequence: "Correct! Using the planned shutdown window avoids extra downtime while still replacing the worn part before failure." },
-        { text: "Run the pump to failure", correct: false, consequence: "The bearing seizes Friday night. Emergency callouts, safety risk, and 3x the repair cost. Always act on predictive warnings." },
-        { text: "Swap the pump immediately", correct: false, consequence: "Rushing the swap without proper staging risks mistakes. The AI gave you a window—use it wisely." }
-      ]
-    },
-    {
-      story: "Thursday 08:00 — Maintenance swaps the bearing during the planned window. The removed bearing shows advanced inner race damage exactly where the AI predicted.",
-      question: "What is the most important follow-up action?",
-      choices: [
-        { text: "Document the AI prediction accuracy", correct: true, consequence: "Correct! Documenting AI accuracy builds trust in the system and improves future predictions through feedback loops." },
-        { text: "Ignore the data — job is done", correct: false, consequence: "Without feedback, the AI cannot learn. Logging outcomes improves predictions for P-102, P-103, and the whole fleet." },
-        { text: "Disable AI alerts on P-101", correct: false, consequence: "Disabling alerts removes protection. The next fault might be different. Keep the AI watching." }
-      ]
-    },
-    {
-      story: "Friday 14:00 — Management asks if AI is worth the investment. You pull the report: one saved unplanned shutdown = $120K avoided. The bearing cost $4K.",
-      question: "What is the ROI message?",
-      choices: [
-        { text: "AI pays for itself with one catch", correct: true, consequence: "Correct! A single early catch of a major failure can save millions — far exceeding the cost of AI deployment." },
-        { text: "AI replaces engineers", correct: false, consequence: "Wrong message. AI assisted your decision. You chose the timing, verified the data, and managed the risk. Humans remain essential." },
-        { text: "AI is only for big equipment", correct: false, consequence: "AI scales from pumps to compressors to entire plants. Every asset that fails predictably is a candidate." }
-      ]
-    }
-  ]
-};
-
-function getCaseStudy() {
-  if (CURRENT_LANG !== 'ar') return CASE_STUDY;
-  return CASE_STUDY_AR;
-}
-
-const CASE_STUDY_AR = {
-  title: "المحمل الذي تحدث",
-  steps: [
-    {
-      story: "الإثنين 06:00 — ملاحظات تسليم الوردية تشير إلى أن المضخة P-101 'تصدر ضوضاء قليلاً مؤخراً.' لوحة تحكم الذكاء الاصطناعي تظهر اتجاه الاهتزاز صاعداً (4.2 → 5.8 مم/ث) على مدى 3 أيام، لكنه لا يزال تحت حد الإنذار 7.0.",
-      question: "كمهندس رئيسي، ما هي أفضل خطوة أولى؟",
-      choices: [
-        { text: "تجاهلها — إنها تحت حد الإنذار", correct: false, consequence: "بحلول الأربعاء، ينفجر المحمل مسبباً توقفاً غير مخطط وخسارة 120 ألف دولار في الإنتاج. رأى الذكاء الاصطناعي الاتجاه؛ رأى الإنذار فقط الحد." },
-        { text: "جدولة فحص بالموجات فوق الصوتية هذا الأسبوع", correct: true, consequence: "صحيح! الفحص الاستباقي يلتقط تآكل المحمل مبكراً، مما يمنع التوقف غير المخطط والإصلاحات المكلفة." },
-        { text: "إيقاف طوارئ الآن", correct: false, consequence: "تخسر 48 ساعة من الإنتاج. كان المحمل يتدهور لكنه لا يزال لديه أيام من العمر الآمن. الفعل التنبؤي يتفوق على الذعر التفاعلي." }
-      ]
-    },
-    {
-      story: "الثلاثاء 09:00 — يؤكد الفحص بالموجات فوق الصوتية تلف السطح الداخلي. يتنبأ الذكاء الاصطناعي بالفشل خلال 5–7 أيام. لديك نافذة صيانة مخططة يوم الخميس.",
-      question: "ماذا تفعل؟",
-      choices: [
-        { text: "انتظر النافذة المخططة", correct: true, consequence: "صحيح! استخدام نافذة الإغلاق المخططة يتجنب التوقف الإضافي مع استبدال القطعة التالفة قبل الفشل." },
-        { text: "شغل المضخة حتى الفشل", correct: false, consequence: "ينفجر المحمس مساء الجمعة. استدعاءات طوارئ، مخاطر سلامة، وتكلفة إصلاح 3 أضعاف. دائماً اتصر على التحذيرات التنبؤية." },
-        { text: "استبدل المضخة فوراً", correct: false, consequence: "الاستعجال في الاستبدال دون التحضير المناسب ي risking الأخطاء. أعطاك الذكاء الاصطناعي نافذة — استخدمها بحكمة." }
-      ]
-    },
-    {
-      story: "الخميس 08:00 — تستبدل الصيانة المحمل أثناء النافذة المخططة. يظهر المحمل المستخرج تلفاً متقدماً في السطح الداخلي بالضبط حيث تنبأ الذكاء الاصطناعي.",
-      question: "ما هي أهم إجراء متابعة؟",
-      choices: [
-        { text: "توثيق دقة التنبؤ بالذكاء الاصطناعي", correct: true, consequence: "صحيح! توثيق دقة التنبؤ يبني الثقة في النظام ويحسن التنبؤات المستقبلية من خلال حلقات الملاحظات." },
-        { text: "تجاهل البيانات — المهمة انتهت", correct: false, consequence: "بدون ملاحظات، لا يمكن للذكاء الاصطناعي التعلم. تسجيل النتائج يحسن التنبؤات لـ P-102، P-103، والأسطول بأكمله." },
-        { text: "تعطيل تنبيهات الذكاء الاصطناعي على P-101", correct: false, consequence: "تعطيل التنبيهات يزيل الحماية. العطل التالي قد يكون مختلفاً. اترك الذكاء الاصطناعي يراقب." }
-      ]
-    },
-    {
-      story: "الجمعة 14:00 — يسأل الإدارة عما إذا كان الذكاء الاصطناعي يستحق الاستثمار. تسحب التقرير: توقف غير مخطط واحد م avoided = 120 ألف دولار. كلف المحمل 4 آلاف دولار.",
-      question: "ما هي رسالة العائد على الاستثمار؟",
-      choices: [
-        { text: "الذكاء الاصطناعي يدفع لنفسه بإنجاز واحد", correct: true, consequence: "صحيح! الاكتشاف المبكر الواحد لعطل كبير يمكن أن يوفر الملايين — متجاوزاً بكثير تكلفة نشر الذكاء الاصطناعي." },
-        { text: "الذكاء الاصطناعي يستبدل المهندسين", correct: false, consequence: "رسالة خاطئة. ساعدك الذكاء الاصطناعي في قرارك. أنت اخترت التوقيت، وتحققت من البيانات، وأدارت المخاطر. البشر لا يزالون ضروريين." },
-        { text: "الذكاء الاصطناعي فقط للمعدات الكبيرة", correct: false, consequence: "يتدرج الذكاء الاصطناعي من المضخات إلى الضواغط إلى المصانع بأكملها. كل أصل يفشل بشكل متوقع هو مرشح." }
-      ]
-    }
-  ]
-};
 
 /* ---- Daily Tips ---- */
 const DAILY_TIPS = [
@@ -1656,10 +1517,9 @@ function createFreshState() {
     badgeHistory: {},   // { badgeId: { earnedAt, points } }
     pointLog: [],       // [{ amount, reason, timestamp }]
     mythIndex: 0, mythScore: 0, safetyIndex: 0, safetyScore: 0,
-    quizIndex: 0, quizScore: 0, wishes: [], certName: '',
+    quizIndex: 0, quizScore: 0, wishes: [],
     streak: 0, lastActive: null, loginCount: 0,
     jargonIndex: 0,
-    caseStep: 0, caseScore: 0,
     aiorhumanIndex: 0, aiorhumanScore: 0,
     promptBonusAwarded: false,
     aitoolsIndex: 0, aitoolsVotes: [],
@@ -1773,11 +1633,10 @@ function saveUserState(uid, s) {
     mythIndex: s.mythIndex, mythScore: s.mythScore,
     safetyIndex: s.safetyIndex, safetyScore: s.safetyScore,
     quizIndex: s.quizIndex, quizScore: s.quizScore,
-    wishes: s.wishes, certName: s.certName,
+    wishes: s.wishes,
     streak: s.streak, lastActive: now,
     loginCount: (s.loginCount || 0),
     jargonIndex: s.jargonIndex,
-    caseStep: s.caseStep, caseScore: s.caseScore,
     aiorhumanIndex: s.aiorhumanIndex, aiorhumanScore: s.aiorhumanScore,
     promptBonusAwarded: s.promptBonusAwarded || false,
     aitoolsIndex: s.aitoolsIndex || 0, aitoolsVotes: s.aitoolsVotes || [],
@@ -1950,11 +1809,10 @@ function migrateLegacyData() {
       mythIndex: saved.mythIndex || 0, mythScore: saved.mythScore || 0,
       safetyIndex: saved.safetyIndex || 0, safetyScore: saved.safetyScore || 0,
       quizIndex: saved.quizIndex || 0, quizScore: saved.quizScore || 0,
-      wishes: saved.wishes || [], certName: saved.certName || '',
+      wishes: saved.wishes || [],
       streak: saved.streak || 0, lastActive: saved.lastActive || null,
       loginCount: 0,
       jargonIndex: saved.jargonIndex || 0,
-      caseStep: saved.caseStep || 0, caseScore: saved.caseScore || 0,
       aiorhumanIndex: 0, aiorhumanScore: 0,
     };
     setUsers(users);
@@ -1991,13 +1849,10 @@ function loadState() {
       state.quizIndex = s.quizIndex || 0;
       state.quizScore = s.quizScore || 0;
       state.wishes = s.wishes || [];
-      state.certName = s.certName || '';
       state.streak = s.streak || 0;
       state.lastActive = s.lastActive || null;
       state.loginCount = (s.loginCount || 0); // loaded from storage, incremented on init only
       state.jargonIndex = s.jargonIndex || 0;
-      state.caseStep = s.caseStep || 0;
-      state.caseScore = s.caseScore || 0;
       state.aiorhumanIndex = s.aiorhumanIndex || 0;
       state.aiorhumanScore = s.aiorhumanScore || 0;
       state.promptBonusAwarded = s.promptBonusAwarded || false;
@@ -2471,10 +2326,9 @@ function createProfile() {
     points: 0, completed: [], badges: [],
     missionHistory: {}, badgeHistory: {}, pointLog: [],
     mythIndex: 0, mythScore: 0, safetyIndex: 0, safetyScore: 0,
-    quizIndex: 0, quizScore: 0, wishes: [], certName: '',
+    quizIndex: 0, quizScore: 0, wishes: [],
     streak: 0, lastActive: null, loginCount: 0,
     jargonIndex: 0,
-    caseStep: 0, caseScore: 0,
     aiorhumanIndex: 0, aiorhumanScore: 0,
     promptBonusAwarded: false,
     aitoolsIndex: 0, aitoolsVotes: [],
@@ -2594,10 +2448,9 @@ function loginAsTrainer() {
     allStates[trainer.id] = {
       points: 0, completed: [], badges: [],
       mythIndex: 0, mythScore: 0, safetyIndex: 0, safetyScore: 0,
-      quizIndex: 0, quizScore: 0, wishes: [], certName: '',
+      quizIndex: 0, quizScore: 0, wishes: [],
       streak: 0, lastActive: null,
       jargonIndex: 0,
-      caseStep: 0, caseScore: 0,
       aiorhumanIndex: 0, aiorhumanScore: 0,
       promptBonusAwarded: false,
       aitoolsIndex: 0, aitoolsVotes: [],
@@ -2910,8 +2763,8 @@ function generateDetailedReport() {
     return;
   }
 
-  const missionNames = { myth:t('mythTitle'), whatis:t('whatisTitle'), jargon:t('jargonTitle'), caps:t('capsTitle'), aiorhuman:t('aiorhumanTitle'), safety:t('safetyTitle'), casestudy:t('caseStudyTitle'), prompt:t('promptTitle'), aitools:t('aitoolsTitle'), group:t('groupTitle'), speedround:t('speedroundTitle'), wish:t('wishTitle'), final:t('finalTitle') };
-  const badgeNames = { mythbuster:t('mythBusterTitle'), jargonmaster:t('jargonMasterTitle'), aidetective:t('aiDetectiveTitle'), casesolver:t('caseSolverTitle'), prompteng:t('promptEngineerTitle'), safetyexpert:t('safetyExpertTitle'), fieldai:t('fieldAIOperatorTitle'), graduate:t('fieldAIGraduateTitle') };
+  const missionNames = { myth:t('mythTitle'), whatis:t('whatisTitle'), jargon:t('jargonTitle'), caps:t('capsTitle'), aiorhuman:t('aiorhumanTitle'), safety:t('safetyTitle'), prompt:t('promptTitle'), aitools:t('aitoolsTitle'), group:t('groupTitle'), speedround:t('speedroundTitle'), wish:t('wishTitle'), final:t('finalTitle') };
+  const badgeNames = { mythbuster:t('mythBusterTitle'), jargonmaster:t('jargonMasterTitle'), aidetective:t('aiDetectiveTitle'), prompteng:t('promptEngineerTitle'), safetyexpert:t('safetyExpertTitle'), fieldai:t('fieldAIOperatorTitle'), graduate:t('fieldAIGraduateTitle') };
 
   let reportSections = '';
 
@@ -3279,8 +3132,8 @@ function exportCSV() {
   });
 
   // 2. Mission History CSV
-  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','casestudy','prompt','aitools','group','speedround','wish','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('caseStudyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
+  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','speedround','wish','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
   let missionsCSV = t('csvMissionHeader') + '\n';
   users.forEach(u => {
     const s = allStates[u.id] || {};
@@ -3354,15 +3207,15 @@ function generateGroupReport() {
   const activeToday = users.filter(u => { const s = allStates[u.id]; return s?.lastActive && new Date(s.lastActive).toDateString() === new Date().toDateString(); }).length;
 
   // Mission heat map
-  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','casestudy','prompt','aitools','group','speedround','wish','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('caseStudyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
+  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','speedround','wish','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
   const missionCounts = missionIds.map(id => users.filter(u => (allStates[u.id]?.completed||[]).includes(id)).length);
   const mostCompleted = missionTitles[missionCounts.indexOf(Math.max(...missionCounts))];
   const leastCompleted = missionTitles[missionCounts.indexOf(Math.min(...missionCounts))];
 
   // Badge heat map
-  const badgeIds = ['mythbuster','jargonmaster','aidetective','casesolver','prompteng','safetyexpert','fieldai','graduate'];
-  const badgeTitles = [t('mythBusterTitle'),t('jargonMasterTitle'),t('aiDetectiveTitle'),t('caseSolverTitle'),t('promptEngineerTitle'),t('safetyExpertTitle'),t('fieldAIOperatorTitle'),t('fieldAIGraduateTitle')];
+  const badgeIds = ['mythbuster','jargonmaster','aidetective','prompteng','safetyexpert','fieldai','graduate'];
+  const badgeTitles = [t('mythBusterTitle'),t('jargonMasterTitle'),t('aiDetectiveTitle'),t('promptEngineerTitle'),t('safetyExpertTitle'),t('fieldAIOperatorTitle'),t('fieldAIGraduateTitle')];
   const badgeCounts = badgeIds.map(id => users.filter(u => (allStates[u.id]?.badges||[]).includes(id)).length);
   const mostEarned = badgeTitles[badgeCounts.indexOf(Math.max(...badgeCounts))];
   const leastEarned = badgeTitles[badgeCounts.indexOf(Math.min(...badgeCounts))];
@@ -3439,7 +3292,7 @@ function generateGroupReport() {
         </div>
       </td>
       <td style="padding:6px 10px;border-bottom:1px solid #1f2937;font-size:11px;color:#10b981;text-align:center;font-weight:bold"><span dir="ltr">${u.completed}/${MISSION_ORDER.length}</span></td>
-      <td style="padding:6px 10px;border-bottom:1px solid #1f2937;font-size:11px;color:${u.quizScore>=8?'#10b981':'#e11d48'};text-align:center;font-weight:bold"><span dir="ltr">${u.quizScore}/${QUIZ.length}</span></td>
+      <td style="padding:6px 10px;border-bottom:1px solid #1f2937;font-size:11px;color:${u.quizScore>=QUIZ_PASSING_SCORE?'#10b981':'#e11d48'};text-align:center;font-weight:bold"><span dir="ltr">${u.quizScore}/${QUIZ.length}</span></td>
       <td style="padding:6px 10px;border-bottom:1px solid #1f2937;font-size:11px;color:#f97316;text-align:center;font-weight:bold">🔥${u.streak}</td>
       <td style="padding:6px 10px;border-bottom:1px solid #1f2937;font-size:11px;color:#8b5cf6;text-align:center;font-weight:bold">${u.badges}</td>
     </tr>`;
@@ -3689,7 +3542,7 @@ function renderTrainerUsersTable() {
                   <span class="text-[10px] text-gray-500">(${pct}%)</span>
                 </div>
               </td>
-              <td class="py-2.5 pr-2 text-center text-xs font-bold ${quizScore>=8?'text-emerald-400':quizScore>0?'text-amber-400':'text-gray-500'}"><span dir="ltr">${quizScore}/${QUIZ.length}</span></td>
+              <td class="py-2.5 pr-2 text-center text-xs font-bold ${quizScore>=QUIZ_PASSING_SCORE?'text-emerald-400':quizScore>0?'text-amber-400':'text-gray-500'}"><span dir="ltr">${quizScore}/${QUIZ.length}</span></td>
               <td class="py-2.5 pr-2 text-center text-xs font-bold text-orange-400">🔥 ${s.streak||0}</td>
               <td class="py-2.5 text-[11px] text-gray-400">${lastActive ? timeAgo(lastActive.toISOString()) : t('never')}</td>
             </tr>`;
@@ -3707,8 +3560,8 @@ function renderTrainerAnalytics() {
   const activities = getActivities();
 
   // Mission completion counts
-  const missionNames = ['myth','whatis','jargon','caps','aiorhuman','safety','casestudy','prompt','aitools','group','speedround','wish','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('caseStudyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
+  const missionNames = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','speedround','wish','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
   const missionCounts = missionNames.map(id => {
     return users.filter(u => {
       const s = allStates[u.id];
@@ -3719,8 +3572,8 @@ function renderTrainerAnalytics() {
   const maxMission = Math.max(...missionCounts, 1);
 
   // Badge distribution
-  const badgeNames = ['mythbuster','jargonmaster','aidetective','casesolver','prompteng','safetyexpert','fieldai','graduate'];
-  const badgeTitles = [t('mythBusterTitle'),t('jargonMasterTitle'),t('aiDetectiveTitle'),t('caseSolverTitle'),t('promptEngineerTitle'),t('safetyExpertTitle'),t('fieldAIOperatorTitle'),t('fieldAIGraduateTitle')];
+  const badgeNames = ['mythbuster','jargonmaster','aidetective','prompteng','safetyexpert','fieldai','graduate'];
+  const badgeTitles = [t('mythBusterTitle'),t('jargonMasterTitle'),t('aiDetectiveTitle'),t('promptEngineerTitle'),t('safetyExpertTitle'),t('fieldAIOperatorTitle'),t('fieldAIGraduateTitle')];
   const badgeCounts = badgeNames.map(id => {
     return users.filter(u => {
       const s = allStates[u.id];
@@ -3850,6 +3703,34 @@ function renderTrainerAnalytics() {
         `;
       }).join('')}
     </div>
+
+    <!-- Group Wishlist -->
+    <div class="flex items-center justify-between mt-4 mb-2">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">${t('groupWishlist')}</h3>
+      <button onclick="exportWishesCSV()" class="px-2 py-1 rounded-lg text-[10px] font-bold bg-field-accent text-field-900 hover:bg-field-accent/80 transition"><i class="fa-solid fa-download mr-1"></i>${t('exportCSV')}</button>
+    </div>
+    <div class="grid gap-2">
+      ${(() => {
+        const wishRows = [];
+        users.forEach(u => {
+          const s = allStates[u.id];
+          const wishes = s ? (s.wishes || []) : [];
+          wishes.forEach(w => wishRows.push({ name: u.name, avatar: u.avatar, wish: w }));
+        });
+        if (!wishRows.length) return `<div class="bg-field-800 border border-field-700 rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-400">${t('noWishesYet')}</p>
+        </div>`;
+        return wishRows.map((r, i) => `
+          <div class="bg-field-800 border ${i<3?'border-field-accent/40':'border-field-700'} rounded-xl p-3 flex items-start gap-2">
+            <span class="text-lg">${r.avatar}</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-[10px] font-bold text-gray-400 mb-0.5">${r.name}</p>
+              <p class="text-xs text-gray-300">${r.wish}</p>
+            </div>
+          </div>
+        `).join('');
+      })()}
+    </div>
   `;
 }
 
@@ -3935,6 +3816,62 @@ function renderTrainerControls() {
   `;
 }
 
+function exportWishesCSV() {
+  const activeGroup = getActiveGroup();
+  const users = getUsers().filter(u => u.role !== 'trainer' && (u.group || 1) === activeGroup.id);
+  const allStates = getAllStates();
+  const rows = [];
+  rows.push(['Name','Wish','Submitted At'].join(','));
+  users.forEach(u => {
+    const s = allStates[u.id];
+    const wishes = s ? (s.wishes || []) : [];
+    wishes.forEach(w => {
+      const escaped = '"' + String(w).replace(/"/g, '""') + '"';
+      rows.push([u.name, escaped, new Date().toISOString().slice(0,10)].join(','));
+    });
+  });
+  const csv = '﻿' + rows.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `wishlist_${activeGroup ? activeGroup.name : 'group'}_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(t('exportSuccess'), 'success');
+}
+
+function downloadAIPocketCard() {
+  const rules = D(SAFETY_RULES, SAFETY_RULES_AR);
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html>
+<html lang="${CURRENT_LANG}" dir="${CURRENT_LANG==='ar'?'rtl':'ltr'}">
+<head><meta charset="UTF-8"><title>AI Safety Pocket Card</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; background: #fff; color: #0f172a; }
+.card { border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; max-width: 420px; margin: 0 auto; }
+h1 { font-size: 18px; color: #f59e0b; margin-bottom: 12px; text-align: center; }
+ul { padding-left: 18px; font-size: 13px; line-height: 1.8; }
+li { margin-bottom: 6px; }
+.footer { text-align: center; font-size: 10px; color: #6b7280; margin-top: 16px; }
+@media print { body { padding: 0; } .no-print { display: none; } }
+</style></head>
+<body>
+  <div class="card">
+    <h1>🛡️ AI Safety Pocket Card</h1>
+    <ul>${rules.map(r => `<li>${r.title}: ${r.text}</li>`).join('')}</ul>
+    <p class="footer">Generated on ${new Date().toLocaleDateString()}</p>
+  </div>
+  <div class="no-print" style="text-align:center;margin-top:20px;">
+    <button onclick="window.print()" style="padding:10px 20px;background:#f59e0b;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">Print / Save as PDF</button>
+  </div>
+  <script>window.onload = function() { setTimeout(function() { window.print(); }, 300); };</script>
+</body></html>`);
+  w.document.close();
+}
+
 /* ============================================================
    UTILITY
    ============================================================ */
@@ -3991,12 +3928,12 @@ function showBadges() {
 /* ============================================================
    MISSION ORDER + NEXT MISSION HELPERS
    ============================================================ */
-const MISSION_ORDER = ['myth', 'whatis', 'jargon', 'caps', 'aiorhuman', 'safety', 'casestudy', 'prompt', 'aitools', 'group', 'speedround', 'wish', 'final'];
-const ALL_BADGE_IDS = ['mythbuster','jargonmaster','aidetective','casesolver','prompteng','safetyexpert','fieldai','graduate'];
+const MISSION_ORDER = ['myth', 'whatis', 'jargon', 'caps', 'aiorhuman', 'safety', 'prompt', 'aitools', 'group', 'speedround', 'wish', 'final'];
+const ALL_BADGE_IDS = ['mythbuster','jargonmaster','aidetective','prompteng','safetyexpert','fieldai','graduate'];
 const MISSION_TITLES = {
   myth: 'AI Myth Buster', whatis: 'What is AI', jargon: 'AI Jargon Buster',
   caps: 'AI Capabilities', aiorhuman: 'AI or Human?',
-  safety: 'AI Safety Rules', casestudy: 'Case Study',
+  safety: 'AI Safety Rules',
   prompt: 'Prompt Engineering', aitools: 'AI Tools in Action', group: 'Group Challenge',
   speedround: 'Speed Round ⚡',
   wish: 'AI Wish List', final: 'Final Quiz + Cert'
@@ -4004,17 +3941,17 @@ const MISSION_TITLES = {
 const MISSION_ICONS = {
   myth: 'fa-fire', whatis: 'fa-robot', jargon: 'fa-book-open',
   caps: 'fa-layer-group', aiorhuman: 'fa-user-secret',
-  safety: 'fa-shield-halved', casestudy: 'fa-file-waveform',
+  safety: 'fa-shield-halved',
   prompt: 'fa-terminal', aitools: 'fa-screwdriver-wrench', group: 'fa-users',
   speedround: 'fa-bolt',
-  wish: 'fa-wand-magic-sparkles', final: 'fa-certificate'
+  wish: 'fa-wand-magic-sparkles', final: 'fa-trophy'
 };
 
 function getMissionTitle(id) {
   const keyMap = {
     myth: 'mythTitle', whatis: 'whatisTitle', jargon: 'jargonTitle',
     caps: 'capsTitle', aiorhuman: 'aiorhumanTitle',
-    safety: 'safetyTitle', casestudy: 'casestudyTitle',
+    safety: 'safetyTitle',
     prompt: 'promptTitle', aitools: 'aitoolsTitle', group: 'groupTitle',
     speedround: 'speedroundTitle',
     wish: 'wishTitle', final: 'finalTitle'
@@ -4032,14 +3969,13 @@ function completeAndAdvance(currentId) {
   // Mark current mission complete and award points
   const pointsMap = {
     myth: 10, whatis: 15, jargon: 20, caps: 20, safety: 25,
-    casestudy: 35, prompt: 20, aitools: 15, group: 20,
+    prompt: 20, aitools: 15, group: 20,
     wish: 15, final: 50, aiorhuman: 20, speedround: 20
   };
   const scoreMap = {
     myth: [() => state.mythScore, 8], jargon: [() => state.jargonIndex, 6],
     caps: [() => 0, 1],
     aiorhuman: [() => state.aiorhumanScore, 6], safety: [() => state.safetyScore, 5],
-    casestudy: [() => state.caseScore, 4],
     prompt: [() => 0, 1], aitools: [() => (state.aitoolsVotes || []).length, 5], group: [() => 0, 1],
     speedround: [() => speedScore || 0, speedTotal || 0], wish: [() => 0, 1],
     final: [() => state.quizScore, QUIZ.length]
@@ -4049,11 +3985,10 @@ function completeAndAdvance(currentId) {
     jargon: { id: 'jargonmaster', title: t('jargonMasterTitle') },
     aiorhuman: { id: 'aidetective', title: t('aiDetectiveTitle'), condition: () => state.aiorhumanScore >= 4 },
     safety: { id: 'safetyexpert', title: t('safetyExpertTitle'), condition: () => state.safetyScore >= 4 },
-    casestudy: { id: 'casesolver', title: t('caseSolverTitle'), condition: () => state.caseScore >= 3 },
     prompt: { id: 'prompteng', title: t('promptEngineerTitle') },
     aitools: { id: 'aitoolsexplorer', title: t('aitoolsBadgeTitle') },
     group: { id: 'fieldai', title: t('fieldAIOperatorTitle') },
-    final: { id: 'graduate', title: t('fieldAIGraduateTitle'), condition: () => state.quizScore >= 8 },
+    final: { id: 'graduate', title: t('fieldAIGraduateTitle'), condition: () => state.quizScore >= QUIZ_PASSING_SCORE },
   };
 
   const si = scoreMap[currentId];
@@ -4111,11 +4046,6 @@ const MISSION_TAKEAWAYS = {
     'Human in the loop — on safety-critical actions, the engineer holds final authority.',
     'Report odd AI behavior — strange output may signal bad data or model drift.',
   ],
-  casestudy: [
-    'Acting on an AI trend warning (not just alarm limits) saves money and prevents failures.',
-    'Planned maintenance is 3x cheaper than emergency repairs.',
-    'Documenting AI prediction accuracy helps the whole fleet learn and improve.',
-  ],
   prompt: [
     'A good prompt defines Role, Context, and Expected Output.',
     'Vague prompts produce vague answers — specific data gets specific results.',
@@ -4139,7 +4069,7 @@ const MISSION_TAKEAWAYS = {
   final: [
     'You now understand what AI is, where it works, and where it needs human judgment.',
     'The missions covered AI fundamentals, safety, practical tools, and real applications.',
-    `${t('certMainTitle')} means trusting AI as a tool while staying accountable as an engineer.`,
+    `${t('fieldAIGraduateTitle')} means trusting AI as a tool while staying accountable as an engineer.`,
   ],
   aiorhuman: [
     'AI-generated maintenance advice can be indistinguishable from expert human judgment.',
@@ -4179,11 +4109,6 @@ const MISSION_TAKEAWAYS_AR = {
     'الإنسان في الحلقة — في الإجراءات الحرجة، يحتفظ المهندس بالسلطة النهائية.',
     'بلغ عن سلوك الذكاء الاصطناعي الغريب — النتائج الغريبة قد تشير إلى بيانات سيئة أو انحراف في النموذج.',
   ],
-  casestudy: [
-    'الاستجابة لتحذير اتجاه الذكاء الاصطناعي (وليس حدود الإنذار فقط) توفر المال وتمنع الأعطال.',
-    'الصيانة المخططة أرخص بثلاث مرات من الإصلاحات الطارئة.',
-    'توثيق دقة تنبؤات الذكاء الاصطناعي يساعد الأسطول بأكمله على التعلم والتحسين.',
-  ],
   prompt: [
     'الأمر الجيد يحدد الدور والسياق والمخرجات المتوقعة.',
     'الأوامر الغامضة تنتج إجابات غامضة — البيانات المحددة تحصل على نتائج محددة.',
@@ -4207,7 +4132,7 @@ const MISSION_TAKEAWAYS_AR = {
   final: [
     'أصبحت تفهم ما هو الذكاء الاصطناعي، وأين يعمل، وأين يحتاج إلى حكم الإنسان.',
     'غطت المهام أساسيات الذكاء الاصطناعي، السلامة، الأدوات العملية، والتطبيقات الحقيقية.',
-    `${t('certMainTitle')} يعني الوثوق بالذكاء الاصطناعي كأداة مع البقاء مسؤولاً كمهندس.`,
+    `${t('fieldAIGraduateTitle')} يعني الوثوق بالذكاء الاصطناعي كأداة مع البقاء مسؤولاُ كمهندس.`,
   ],
   aiorhuman: [
     'يمكن أن يكون نصائح الصيانة المولدة بالذكاء الاصطناعي لا يمكن تمييزها عن حكم الخبير البشري.',
@@ -4442,7 +4367,6 @@ function resetMission(id) {
     case 'jargon': state.jargonIndex = 0; break;
     case 'aiorhuman': state.aiorhumanIndex = 0; state.aiorhumanScore = 0; break;
     case 'safety': state.safetyIndex = 0; state.safetyScore = 0; break;
-    case 'casestudy': state.caseStep = 0; state.caseScore = 0; break;
     case 'prompt': state.promptBonusAwarded = false; break;
     case 'aitools': state.aitoolsIndex = 0; state.aitoolsVotes = []; break;
     case 'final': state.quizIndex = 0; state.quizScore = 0; break;
@@ -4461,7 +4385,7 @@ function startMission(id) {
   const map = {
     myth: renderMyth, whatis: renderWhatIs, jargon: renderJargon,
     caps: renderCapabilities, aiorhuman: renderAIorHuman,
-    safety: renderSafety, casestudy: renderCaseStudy,
+    safety: renderSafety,
     prompt: renderPrompt, aitools: renderAITools, group: renderGroup,
     speedround: renderSpeedRound, wish: renderWish, final: renderFinal,
   };
@@ -4742,6 +4666,7 @@ function startSafetyQuiz() {
         <p class="text-sm text-gray-400 mt-1">${t('score')}: <span dir="ltr">${state.safetyScore}/${D(SAFETY_SCENARIOS, SAFETY_SCENARIOS_AR).length}</span></p>
         ${state.safetyScore >= 4 ? `<p class="text-xs text-emerald-400 mt-2 font-semibold">${t('safetyExpertBadgeEarned')}</p>` : ''}
         <button onclick="state.safetyIndex=0; state.safetyScore=0; saveState(); startSafetyQuiz();" class="mt-4 px-4 py-2 bg-field-700 text-white rounded-lg text-sm font-bold btn-pulse">${t('replayBtn')}</button>
+        <button onclick="downloadAIPocketCard()" class="mt-2 w-full py-3 bg-field-800 border border-field-accent/40 text-field-accent rounded-xl text-sm font-bold btn-pulse"><i class="fa-solid fa-download mr-1"></i> ${t('downloadPocketCard')}</button>
         <button onclick="markComplete('safety', state.safetyScore, 5); if (state.safetyScore>=4) awardBadge('safetyexpert', t('safetyExpertTitle')); addPoints(25, t('safetyExpert')); goMissions();" class="mt-2 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('finishMission')}</button>
       </div>
     `);
@@ -4796,80 +4721,7 @@ function nextSafety() {
 }
 
 /* ============================================================
-   7. CASE STUDY (NEW)
-   ============================================================ */
-function renderCaseStudy() {
-  state.view = 'casestudy';
-  if (state.caseStep >= getCaseStudy().steps.length) {
-    const passed = state.caseScore >= 3;
-    setView(`${backBtn()}
-      <div class="text-center py-10 card-enter">
-        <div class="w-16 h-16 rounded-full ${passed?'bg-emerald-500/15 text-emerald-400':'bg-field-danger/15 text-field-danger'} flex items-center justify-center mx-auto mb-3 text-2xl">
-          <i class="fa-solid ${passed?'fa-file-waveform':'fa-triangle-exclamation'}"></i>
-        </div>
-        <h2 class="text-lg font-black text-white">${passed?t('caseClosed'):t('reviewNeeded')}</h2>
-        <p class="text-sm text-gray-400 mt-1">${t('decisionsCorrect')} <span dir="ltr">${state.caseScore}/${getCaseStudy().steps.length}</span></p>
-        ${passed ? `<p class="text-xs text-emerald-400 mt-2 font-semibold">${t('caseSolverBadgeEarned')}</p>` : `<p class="text-xs text-gray-400 mt-2">${t('replayToSharpen')}</p>`}
-        <button onclick="state.caseStep=0; state.caseScore=0; saveState(); renderCaseStudy();" class="mt-4 px-4 py-2 bg-field-700 text-white rounded-lg text-sm font-bold btn-pulse">${t('replayCase')}</button>
-        ${passed ? `<button onclick="markComplete('casestudy'); awardBadge('casesolver', t('caseSolverTitle')); addPoints(35, t('caseStudyPassed')); goMissions();" class="mt-2 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('completeMission')}</button>` : ''}
-      </div>
-    `);
-    return;
-  }
-  const step = getCaseStudy().steps[state.caseStep];
-  setView(`${backBtn()}
-    <div class="card-enter">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-xs font-bold text-field-accent bg-field-accent/10 px-2 py-1 rounded">${t('chapterLabel')} <span dir="ltr">${state.caseStep+1}/${getCaseStudy().steps.length}</span></span>
-        <span class="text-xs text-gray-400">${getCaseStudy().title}</span>
-      </div>
-      <div class="bg-field-800 border border-field-700 rounded-xl p-4 mb-4">
-        <p class="text-xs text-gray-400 leading-relaxed mb-2">${step.story}</p>
-        <p class="text-sm font-bold text-white">${step.question}</p>
-      </div>
-      <div class="grid gap-2.5" id="caseBtns">
-        ${step.choices.map((c, i) => `
-          <button onclick="answerCase(${i})" class="text-left px-4 py-3 rounded-xl bg-field-800 border border-field-700 text-xs font-semibold text-gray-300 hover:border-field-accent/50 hover:bg-field-accent/5 btn-pulse transition choice-glow">
-            ${i+1}. ${c.text}
-          </button>
-        `).join('')}
-      </div>
-      <div id="caseFeedback" class="mt-4 hidden"></div>
-    </div>
-  `);
-}
-function answerCase(choiceIdx) {
-  const btns = document.getElementById('caseBtns');
-  if (btns) btns.style.display = 'none';
-  const step = getCaseStudy().steps[state.caseStep];
-  const choice = step.choices[choiceIdx];
-  const correct = choice.correct;
-  playSound(correct ? 'correct' : 'wrong');
-  if (correct) {
-    state.caseScore++;
-    addPoints(15, t('goodDecision'));
-  }
-  const fb = document.getElementById('caseFeedback');
-  fb.classList.remove('hidden');
-  fb.className = 'card-enter rounded-xl border p-3 ' + (correct ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-field-danger/10 border-field-danger/30');
-  fb.innerHTML = `
-    <div class="flex items-center gap-2 mb-1">
-      <i class="fa-solid ${correct?'fa-circle-check text-emerald-400':'fa-circle-xmark text-field-danger'} text-lg"></i>
-      <span class="font-bold text-sm ${correct?'text-emerald-400':'text-field-danger'}">${correct?t('solidCall'):t('thinkAgain')}</span>
-    </div>
-    ${!correct ? `<p class="text-xs text-gray-300 leading-relaxed mb-2">${choice.consequence}</p>` : ''}
-    <button onclick="nextCase()" class="mt-2 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${t('nextChapter')} <i class="fa-solid fa-arrow-right ml-1"></i></button>
-  `;
-  saveState();
-}
-function nextCase() {
-  state.caseStep++;
-  saveState();
-  renderCaseStudy();
-}
-
-/* ============================================================
-   8. PROMPT ENGINEERING
+   7. PROMPT ENGINEERING
    ============================================================ */
 function renderPrompt() {
   state.view = 'prompt';
@@ -5344,31 +5196,19 @@ function endSpeedRound() {
 function renderFinal() {
   state.view = 'final';
   if (state.quizIndex >= D(QUIZ, QUIZ_AR).length) {
-    const passed = state.quizScore >= 8;
+    const passed = state.quizScore >= QUIZ_PASSING_SCORE;
     setView(`${backBtn()}
       <div class="text-center py-6 card-enter">
         <div class="w-16 h-16 rounded-full ${passed?'bg-emerald-500/15 text-emerald-400':'bg-field-danger/15 text-field-danger'} flex items-center justify-center mx-auto mb-3 text-2xl">
-          <i class="fa-solid ${passed?'fa-certificate':'fa-circle-xmark'}"></i>
+          <i class="fa-solid ${passed?'fa-trophy':'fa-circle-xmark'}"></i>
         </div>
         <h2 class="text-lg font-black text-white">${passed?t('passed'):t('notYet')}</h2>
         <p class="text-sm text-gray-400 mt-1">${t('score')}: <span dir="ltr"><span dir="ltr">${state.quizScore}/${D(QUIZ, QUIZ_AR).length}</span></span></p>
-        <p class="text-xs ${passed?'text-emerald-400':'text-field-danger'} mt-1 font-semibold">${passed?t('youEarnedCert'):t('needMore')}</p>
-        ${passed ? `
-          <div class="mt-4 certificate rounded-xl p-5 text-center">
-            <p class="text-[10px] text-field-accent font-bold uppercase tracking-widest mb-1">${t('certTitle')}</p>
-            <h3 class="text-base font-black text-white">${t('certMainTitle')}</h3>
-            <p class="text-xs text-gray-400 mt-1">${t('certAwareness')}</p>
-            <div class="my-3 h-px bg-field-accent/20"></div>
-            <p class="text-xs text-gray-400">${t('certThis')}</p>
-            <input id="certNameInput" type="text" placeholder="${t('certPlaceholder')}" value="${state.certName}" class="w-full bg-transparent text-center text-sm font-bold text-field-accent border-b border-field-accent/30 focus:outline-none focus:border-field-accent placeholder-gray-600 my-2 py-1" />
-            <p class="text-[10px] text-gray-500">${t('certCompleted')}</p>
-            <p class="text-[10px] text-gray-600 mt-2">${t('certDate')}: ${fmtDate(new Date())}</p>
-          </div>
-          <button onclick="downloadCertificate()" class="mt-4 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse"><i class="fa-solid fa-download mr-1"></i> ${t('downloadCert')}</button>
-        ` : `
+        <p class="text-xs ${passed?'text-emerald-400':'text-field-danger'} mt-1 font-semibold">${passed?t('workshopComplete'):t('needMore')}</p>
+        ${passed ? '' : `
           <button onclick="state.quizIndex=0; state.quizScore=0; saveState(); renderFinal();" class="mt-4 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('retryQuiz')}</button>
         `}
-        ${passed ? `<button onclick="markComplete('final'); awardBadge('graduate', t('fieldAIGraduateTitle')); addPoints(50, t('workshopComplete')); goMissions();" class="mt-2 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('claimCert')}</button>` : `<button onclick="goMissions()" class="mt-2 w-full py-3 bg-field-700 text-white rounded-xl text-sm font-bold btn-pulse">${t('backToHub')}</button>`}
+        ${passed ? `<button onclick="markComplete('final'); awardBadge('graduate', t('fieldAIGraduateTitle')); addPoints(50, t('workshopComplete')); goMissions();" class="mt-4 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('completeMission')}</button>` : `<button onclick="goMissions()" class="mt-4 w-full py-3 bg-field-700 text-white rounded-xl text-sm font-bold btn-pulse">${t('backToHub')}</button>`}
       </div>
     `);
     return;
@@ -5418,39 +5258,6 @@ function nextQuiz() {
   renderFinal();
 }
 
-function downloadCertificate() {
-  const name = document.getElementById('certNameInput').value.trim() || t('defaultCertName');
-  state.certName = name;
-  saveState();
-  fireConfetti(50);
-  const safeName = escHtml(name);
-  const certHTML = `<!DOCTYPE html>
-<html lang="${CURRENT_LANG}" dir="${CURRENT_LANG==='ar'?'rtl':'ltr'}">
-<head><meta charset="UTF-8"><title>${t('certTitle')}</title><style>body{background:#0f172a;color:#e5e7eb;font-family:Arial,sans-serif;padding:40px;text-align:center}</style></head>
-<body>
-    <div style="font-family:Arial, sans-serif; background:#0f172a; color:#e5e7eb; padding:40px; text-align:center; border:3px solid #f59e0b; max-width:600px; margin:0 auto;">
-      <h2 style="color:#f59e0b; font-size:14px; text-transform:uppercase; letter-spacing:2px;">${t('certTitle')}</h2>
-      <h1 style="color:#fff; font-size:28px; margin:10px 0;">${t('certMainTitle')}</h1>
-      <p style="color:#9ca3af; font-size:16px;">${t('certAwareness')}</p>
-      <hr style="border-color:#f59e0b33; margin:20px 0;">
-      <p style="color:#9ca3af; font-size:14px;">${t('certThis')}</p>
-      <p style="color:#f59e0b; font-size:22px; font-weight:bold; margin:8px 0;">${safeName}</p>
-      <p style="color:#9ca3af; font-size:12px;">${t('certCompleted')}</p>
-      <p style="color:#6b7280; font-size:12px; margin-top:20px;">${t('certDate')}: ${fmtDate(new Date())}</p>
-    </div>
-</body></html>`;
-  const blob = new Blob([certHTML], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  const safeFileName = name.replace(/[<>:"/\\|?*\s]+/g, '_').replace(/^_+|_+$/g, '') || t('defaultCertName');
-  a.download = `${t('certFilenamePrefix')}_${safeFileName}.html`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-  showToast(t('certDownloaded'), 'success');
-}
 
 /* ============================================================
    ${t('badLabel')}GES MODAL
@@ -5460,7 +5267,6 @@ function renderBadgesModal() {
     { id: 'mythbuster', title: t('mythBusterTitle'), icon: 'fa-fire', desc: t('mythBusterDesc'), condition: () => state.mythScore >= 6 },
     { id: 'jargonmaster', title: t('jargonMasterTitle'), icon: 'fa-book-open', desc: t('jargonBusterDesc'), condition: () => state.badges.has('jargonmaster') },
     { id: 'aidetective', title: t('aiDetectiveTitle'), icon: 'fa-user-secret', desc: t('aiDetectiveDesc'), condition: () => state.aiorhumanScore >= 4 },
-    { id: 'casesolver', title: t('caseSolverTitle'), icon: 'fa-file-waveform', desc: t('caseSolverDesc'), condition: () => state.badges.has('casesolver') },
     { id: 'prompteng', title: t('promptEngineerTitle'), icon: 'fa-terminal', desc: t('promptengDesc'), condition: () => state.badges.has('prompteng') },
     { id: 'safetyexpert', title: t('safetyExpertTitle'), icon: 'fa-shield-halved', desc: t('safetyExpertDesc'), condition: () => state.safetyScore >= 4 },
     { id: 'fieldai', title: t('fieldAIOperatorTitle'), icon: 'fa-toolbox', desc: t('fieldAIOperatorDesc'), condition: () => state.badges.has('fieldai') },
