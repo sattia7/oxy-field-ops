@@ -1162,6 +1162,8 @@ const I18N = {
   missionLockCleared: { en:'Mission lock cleared — following normal progression', ar:'تم إلغاء قفل المهمة — يتبع التسلسل الطبيعي' },
   allMissionsUnlocked: { en:'All missions unlocked for this group', ar:'تم فتح جميع المهام لهذه المجموعة' },
   allMissionsLocked: { en:'All missions locked for this group', ar:'تم قفل جميع المهام لهذه المجموعة' },
+  aitoolsVoteChart: { en:'AI Tools Voting', ar:'تصويت أدوات الذكاء الاصطناعي' },
+  votes: { en:'votes', ar:'تصويت' },
 };
 
 // Language helpers
@@ -3816,6 +3818,37 @@ function renderTrainerAnalytics() {
         <p class="text-lg font-black text-emerald-400">${typeCounts.badge_earned}</p>
         <p class="text-[10px] text-gray-400">${t('badgesKPI')}</p>
       </div>
+    </div>
+
+    <!-- AI Tools Voting Breakdown -->
+    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mt-4 mb-2">${t('aitoolsVoteChart')}</h3>
+    <div class="grid gap-3">
+      ${D(AI_TOOLS_SCENARIOS, AI_TOOLS_SCENARIOS_AR).map((scenario, idx) => {
+        const yesCount = users.filter(u => (allStates[u.id]?.aitoolsVotes || [])[idx] === 1).length;
+        const noCount = users.filter(u => (allStates[u.id]?.aitoolsVotes || [])[idx] === 0).length;
+        const total = yesCount + noCount;
+        const yesPct = total ? (yesCount / total) * 100 : 0;
+        const noPct = total ? (noCount / total) * 100 : 0;
+        return `
+          <div class="bg-field-800 border border-field-700 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-solid ${scenario.icon} text-field-accent text-xs"></i>
+              <span class="text-xs font-bold text-white">${scenario.title}</span>
+            </div>
+            <div class="flex items-center gap-2 mb-1">
+              <div class="flex-1 h-4 bg-field-700 rounded-full overflow-hidden flex">
+                <div class="h-full bg-emerald-500 rounded-l-full transition-all flex items-center justify-center" style="width:${yesPct}%"><span class="text-[9px] font-black text-white">${yesPct >= 15 ? yesCount : ''}</span></div>
+                <div class="h-full bg-field-danger rounded-r-full transition-all flex items-center justify-center" style="width:${noPct}%"><span class="text-[9px] font-black text-white">${noPct >= 15 ? noCount : ''}</span></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-gray-400">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> ${t('yesVote')} ${yesCount}</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-field-danger"></span> ${t('noVote')} ${noCount}</span>
+              <span>${total} ${t('votes')}</span>
+            </div>
+          </div>
+        `;
+      }).join('')}
     </div>
   `;
 }
