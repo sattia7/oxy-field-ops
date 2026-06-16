@@ -4285,6 +4285,14 @@ function dailyTip() {
   const idx = Math.floor(Math.random() * tips.length);
   return tips[idx];
 }
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 /* ============================================================
    HOME SCREEN
@@ -4395,7 +4403,19 @@ function isMissionLockedForUser(missionId) {
   if (override === 'locked') return true;
   return prevId ? !state.completed.has(prevId) : false;
 }
-
+function resetMission(id) {
+  switch(id) {
+    case 'myth': state.mythIndex = 0; state.mythScore = 0; break;
+    case 'jargon': state.jargonIndex = 0; break;
+    case 'aiorhuman': state.aiorhumanIndex = 0; state.aiorhumanScore = 0; break;
+    case 'safety': state.safetyIndex = 0; state.safetyScore = 0; break;
+    case 'casestudy': state.caseStep = 0; state.caseScore = 0; break;
+    case 'prompt': state.promptBonusAwarded = false; break;
+    case 'aitools': state.aitoolsIndex = 0; state.aitoolsVotes = []; break;
+    case 'final': state.quizIndex = 0; state.quizScore = 0; break;
+  }
+  saveState();
+}
 function startMission(id) {
   if (id === 'speedround' && !hasTrainerAccess()) {
     showToast(t('lockedBtn'), 'info'); return;
@@ -4403,6 +4423,8 @@ function startMission(id) {
   if (isMissionLockedForUser(id) && !state.completed.has(id)) {
     showToast(t('lockedBtn'), 'info'); return;
   }
+  // If replaying a completed mission, reset its progress first
+  if (state.completed.has(id)) resetMission(id);
   const map = {
     myth: renderMyth, whatis: renderWhatIs, jargon: renderJargon,
     caps: renderCapabilities, aiorhuman: renderAIorHuman,
@@ -5184,6 +5206,11 @@ function showSpeedQuestion() {
   const q = pool[Math.floor(Math.random() * pool.length)];
   speedQIndex++;
   speedTotal++;
+  // Shuffle options so correct answer is not always in the same slot
+  const originalOpts = q.options || q.opts;
+  const indexedOpts = originalOpts.map((text, i) => ({ text, originalIdx: i }));
+  const shuffled = shuffleArray(indexedOpts);
+  const correctIdx = shuffled.findIndex(item => item.originalIdx === q.a);
   const game = document.getElementById('speedGame');
   game.innerHTML = `
     <div class="bg-field-800 border border-field-700 rounded-xl p-4 mb-3">
@@ -5191,8 +5218,8 @@ function showSpeedQuestion() {
       <p class="text-sm font-bold text-white leading-snug mt-1">${q.q}</p>
     </div>
     <div class="grid grid-cols-2 gap-2" id="speedOpts">
-      ${(q.options || q.opts).map((opt, i) => `
-        <button id="speedBtn-${i}" onclick="answerSpeed(${i}, ${q.a})" class="speed-btn py-3 px-2 rounded-xl bg-field-800 border border-field-700 text-[11px] font-semibold text-gray-300 hover:border-field-accent/50 hover:bg-field-accent/5 btn-pulse transition">${opt}</button>
+      ${shuffled.map((item, i) => `
+        <button id="speedBtn-${i}" onclick="answerSpeed(${i}, ${correctIdx})" class="speed-btn py-3 px-2 rounded-xl bg-field-800 border border-field-700 text-[11px] font-semibold text-gray-300 hover:border-field-accent/50 hover:bg-field-accent/5 btn-pulse transition">${item.text}</button>
       `).join('')}
     </div>
   `;
