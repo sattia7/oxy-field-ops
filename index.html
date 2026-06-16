@@ -800,6 +800,7 @@ const I18N = {
   yourProfile: { en:'Your Profile', ar:'ملفك الشخصي' },
   pts: { en:'pts', ar:'نقطة' },
   done: { en:'done', ar:'مكتمل' },
+  all: { en:'All', ar:'الكل' },
   orCreateNew: { en:'Or Create New', ar:'أو إنشاء جديد' },
   createNewProfile: { en:'Create New Profile', ar:'إنشاء ملف شخصي جديد' },
   aiTrainerLogin: { en:'AI Trainer Login', ar:'دخول مدرب الذكاء الاصطناعي' },
@@ -1159,6 +1160,8 @@ const I18N = {
   followProgression: { en:'Follow Progression', ar:'اتباع التسلسل' },
   missionLockUpdated: { en:'Mission lock updated', ar:'تم تحديث قفل المهمة' },
   missionLockCleared: { en:'Mission lock cleared — following normal progression', ar:'تم إلغاء قفل المهمة — يتبع التسلسل الطبيعي' },
+  allMissionsUnlocked: { en:'All missions unlocked for this group', ar:'تم فتح جميع المهام لهذه المجموعة' },
+  allMissionsLocked: { en:'All missions locked for this group', ar:'تم قفل جميع المهام لهذه المجموعة' },
 };
 
 // Language helpers
@@ -1710,6 +1713,26 @@ function clearMissionLock(missionId) {
   if (locks[group?.id]) delete locks[group.id][missionId];
   setMissionLocks(locks);
   showToast(t('missionLockCleared') || 'Mission lock cleared', 'success');
+  if (state.view === 'home' || state.view === 'missions') goMissions();
+}
+function unlockAllMissions() {
+  const locks = getMissionLocks();
+  const group = getActiveGroup();
+  if (!locks[group?.id]) locks[group.id] = {};
+  MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks[group.id][id] = 'unlocked'; });
+  setMissionLocks(locks);
+  showToast(t('allMissionsUnlocked'), 'success');
+  renderTrainerControls();
+  if (state.view === 'home' || state.view === 'missions') goMissions();
+}
+function lockAllMissions() {
+  const locks = getMissionLocks();
+  const group = getActiveGroup();
+  if (!locks[group?.id]) locks[group.id] = {};
+  MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks[group.id][id] = 'locked'; });
+  setMissionLocks(locks);
+  showToast(t('allMissionsLocked'), 'info');
+  renderTrainerControls();
   if (state.view === 'home' || state.view === 'missions') goMissions();
 }
 
@@ -3846,13 +3869,15 @@ function renderTrainerControls() {
   const group = getActiveGroup();
   const groupLocks = group ? (locks[group.id] || {}) : {};
   const missions = MISSION_ORDER.filter(id => id !== 'final');
-  const missionNames = D(AI_TOOLS_SCENARIOS.map(() => ''), []); // dummy
-  // Build per-mission titles from MISSION_TITLES
   const titles = MISSION_TITLES;
 
   return `
     <div class="space-y-3">
       <p class="text-xs text-gray-400">${t('missionControls')} — ${group ? group.name : t('noGroup')}</p>
+      <div class="flex gap-2 mb-2">
+        <button onclick="unlockAllMissions()" class="flex-1 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock-open mr-1"></i> ${t('forceUnlock')} ${t('all')}</button>
+        <button onclick="lockAllMissions()" class="flex-1 py-2 bg-field-danger text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock mr-1"></i> ${t('forceLock')} ${t('all')}</button>
+      </div>
       <div class="grid gap-2">
         ${missions.map(id => {
           const override = groupLocks[id];
@@ -5165,9 +5190,9 @@ function showSpeedQuestion() {
       <p class="text-xs text-gray-400">${t('qPrefix')}${speedQIndex}</p>
       <p class="text-sm font-bold text-white leading-snug mt-1">${q.q}</p>
     </div>
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-2 gap-2" id="speedOpts">
       ${(q.options || q.opts).map((opt, i) => `
-        <button onclick="answerSpeed(${i}, ${q.a})" class="py-3 px-2 rounded-xl bg-field-800 border border-field-700 text-[11px] font-semibold text-gray-300 hover:border-field-accent/50 hover:bg-field-accent/5 btn-pulse transition">${opt}</button>
+        <button id="speedBtn-${i}" onclick="answerSpeed(${i}, ${q.a})" class="speed-btn py-3 px-2 rounded-xl bg-field-800 border border-field-700 text-[11px] font-semibold text-gray-300 hover:border-field-accent/50 hover:bg-field-accent/5 btn-pulse transition">${opt}</button>
       `).join('')}
     </div>
   `;
@@ -5175,17 +5200,48 @@ function showSpeedQuestion() {
 
 function answerSpeed(choice, correctAnswer) {
   const correct = choice === correctAnswer;
+  const optsDiv = document.getElementById('speedOpts');
+  if (optsDiv) {
+    // Disable all buttons
+    optsDiv.querySelectorAll('button').forEach(btn => {
+      btn.disabled = true;
+      btn.classList.remove('btn-pulse', 'hover:border-field-accent/50', 'hover:bg-field-accent/5');
+      btn.style.opacity = '0.6';
+    });
+    // Highlight clicked button
+    const clicked = document.getElementById(`speedBtn-${choice}`);
+    if (clicked) {
+      clicked.style.opacity = '1';
+      if (correct) {
+        clicked.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+        clicked.classList.remove('border-field-700', 'bg-field-800', 'text-gray-300');
+      } else {
+        clicked.classList.add('border-field-danger', 'bg-field-danger/20', 'text-field-danger');
+        clicked.classList.remove('border-field-700', 'bg-field-800', 'text-gray-300');
+        // Also highlight the correct answer
+        const correctBtn = document.getElementById(`speedBtn-${correctAnswer}`);
+        if (correctBtn) {
+          correctBtn.style.opacity = '1';
+          correctBtn.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+          correctBtn.classList.remove('border-field-700', 'bg-field-800', 'text-gray-300');
+        }
+      }
+    }
+  }
   if (correct) {
     speedScore++;
     playSound('correct');
   } else {
     playSound('wrong');
   }
-  if (speedTimeLeft > 0) {
-    showSpeedQuestion();
-  } else {
-    endSpeedRound();
-  }
+  // Brief pause so user sees the color before next question
+  setTimeout(() => {
+    if (speedTimeLeft > 0) {
+      showSpeedQuestion();
+    } else {
+      endSpeedRound();
+    }
+  }, 700);
 }
 
 function endSpeedRound() {
