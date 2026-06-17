@@ -580,6 +580,15 @@ const I18N = {
   backToHub: { en:'Back to Hub', ar:'العودة للرئيسية' },
   needMore: { en:'You need 7/12 to pass. Replay and retry!', ar:'تحتاج 7/12 للنجاح. أعد المحاولة!' },
 
+  // Modules
+  welcomeExercise: { en:'Welcome Exercise', ar:'تمرين الترحيب' },
+  module1Label: { en:'Module 1 — AI Fundamentals', ar:'الوحدة 1 — أساسيات الذكاء الاصطناعي' },
+  module2Label: { en:'Module 2 — AI in Practice', ar:'الوحدة 2 — الذكاء الاصطناعي في الممارسة' },
+  module3Label: { en:'Module 3 — Prompt Engineering', ar:'الوحدة 3 — هندسة الأوامر' },
+  module4Label: { en:'Module 4 — AI Tools & Teamwork', ar:'الوحدة 4 — أدوات الذكاء الاصطناعي والعمل الجماعي' },
+  module6Label: { en:'Module 6 — Innovation', ar:'الوحدة 6 — الابتكار' },
+  finalStretch: { en:'Final Stretch', ar:'المرحلة النهائية' },
+
   // Trainer Dashboard
   trainerDashboard: { en:'Trainer Dashboard', ar:'لوحة تحكم المدرب' },
   newTraineeDetected: { en:'New trainee detected!', ar:'تم اكتشاف متدرب جديد!' },
@@ -776,8 +785,8 @@ const I18N = {
   bustMythsDesc: { en:'Bust myths, spot real AI, build prompts, and explore field tools.', ar:'حطم الأساطير، اكتف الذكاء الاصطناعي الحقيقي، ابنِ أوامر، واستكشف أدوات الميدان.' },
   earnPointsBadges: { en:'Earn Points & Badges', ar:'اربح النقاط والشارات' },
   scorePointsDesc: { en:'Score points on every mission, unlock 10 badges, and build your streak.', ar:'حصل على نقاط في كل مهمة، افتح 10 شارات، وابنِ تتابعك.' },
-  getCertified: { en:'Get Certified', ar:'احصل على الشهادة' },
-  passFinalQuizDesc: { en:'Pass the final quiz (8/12) and earn your AI Field Ops Readiness Certificate.', ar:'اجتاز الاختبار النهائي (8/12) واحصل على شهادة الجاهزية للذكاء الاصطناعي الميداني.' },
+  completeWorkshop: { en:'Complete the Workshop', ar:'أكمل الورشة' },
+  passFinalQuizDesc2: { en:'Pass the final quiz (7/12) to finish the workshop and unlock the Graduate badge.', ar:'اجتاز الاختبار النهائي (7/12) لإنهاء الورشة وفتح شارة الخريج.' },
   yourPaceDevice: { en:'Your Pace, Your Device', ar:'سرعتك، جهازك' },
   allProgressSaved: { en:'All progress saved locally. Come back anytime and pick up where you left off.', ar:'كل التقدم محفوظ محلياً. عد في أي وقت واستأنف من حيث توقفت.' },
   heresHowItWorks: { en:"Here's how it works:", ar:'إليك طريقة العمل:' },
@@ -2371,7 +2380,7 @@ function showWelcomeScreen(user) {
           </div>
           <div class="flex items-start gap-2.5">
             <span class="w-5 h-5 rounded-full bg-amber-500/15 text-amber-400 flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5">4</span>
-            <span><b class="text-white">${t('getCertified')}</b> — ${t('passFinalQuizDesc')}</span>
+            <span><b class="text-white">${t('completeWorkshop')}</b> — ${t('passFinalQuizDesc2')}</span>
           </div>
           <div class="flex items-start gap-2.5">
             <span class="w-5 h-5 rounded-full bg-purple-500/15 text-purple-400 flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5">5</span>
@@ -3132,8 +3141,8 @@ function exportCSV() {
   });
 
   // 2. Mission History CSV
-  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','speedround','wish','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
+  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','wish','speedround','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
   let missionsCSV = t('csvMissionHeader') + '\n';
   users.forEach(u => {
     const s = allStates[u.id] || {};
@@ -3207,8 +3216,8 @@ function generateGroupReport() {
   const activeToday = users.filter(u => { const s = allStates[u.id]; return s?.lastActive && new Date(s.lastActive).toDateString() === new Date().toDateString(); }).length;
 
   // Mission heat map
-  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','speedround','wish','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
+  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','wish','speedround','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
   const missionCounts = missionIds.map(id => users.filter(u => (allStates[u.id]?.completed||[]).includes(id)).length);
   const mostCompleted = missionTitles[missionCounts.indexOf(Math.max(...missionCounts))];
   const leastCompleted = missionTitles[missionCounts.indexOf(Math.min(...missionCounts))];
@@ -3560,8 +3569,8 @@ function renderTrainerAnalytics() {
   const activities = getActivities();
 
   // Mission completion counts
-  const missionNames = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','speedround','wish','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('speedroundTitle'),t('wishTitle'),t('finalTitle')];
+  const missionNames = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','wish','speedround','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
   const missionCounts = missionNames.map(id => {
     return users.filter(u => {
       const s = allStates[u.id];
@@ -3928,7 +3937,16 @@ function showBadges() {
 /* ============================================================
    MISSION ORDER + NEXT MISSION HELPERS
    ============================================================ */
-const MISSION_ORDER = ['myth', 'whatis', 'jargon', 'caps', 'aiorhuman', 'safety', 'prompt', 'aitools', 'group', 'speedround', 'wish', 'final'];
+const MISSION_ORDER = ['myth', 'whatis', 'jargon', 'caps', 'aiorhuman', 'safety', 'prompt', 'aitools', 'group', 'wish', 'speedround', 'final'];
+const MODULE_GROUPS = [
+  { label: 'welcomeExercise', ids: ['myth'], numbered: false },
+  { label: 'module1Label', ids: ['whatis', 'jargon', 'caps'], numbered: true },
+  { label: 'module2Label', ids: ['aiorhuman', 'safety'], numbered: true },
+  { label: 'module3Label', ids: ['prompt'], numbered: true },
+  { label: 'module4Label', ids: ['aitools', 'group'], numbered: true },
+  { label: 'module6Label', ids: ['wish'], numbered: true },
+  { label: 'finalStretch', ids: ['speedround', 'final'], numbered: false },
+];
 const ALL_BADGE_IDS = ['mythbuster','jargonmaster','aidetective','prompteng','safetyexpert','fieldai','graduate'];
 const MISSION_TITLES = {
   myth: 'AI Myth Buster', whatis: 'What is AI', jargon: 'AI Jargon Buster',
@@ -4273,15 +4291,6 @@ function goMissions() {
   updateStreak();
 
   const totalMissions = MISSION_ORDER.filter(id => id !== 'speedround' || hasTrainerAccess()).length;
-  const missions = MISSION_ORDER.filter(id => id !== 'speedround' || hasTrainerAccess()).map((id, i) => {
-    return {
-      id, num: i+1,
-      icon: MISSION_ICONS[id],
-      desc: t(id+'Desc'),
-      title: t(id+'Title'),
-      locked: isMissionLockedForUser(id)
-    };
-  });
 
   let html = `
     <div class="text-center mb-5 card-enter">
@@ -4319,27 +4328,52 @@ function goMissions() {
       </div>
     </div>
 
-    <div class="grid gap-3 mb-6">
-      ${missions.map((m, i) => {
-        const done = state.completed.has(m.id);
-        const locked = m.locked && !done;
+    <div class="space-y-6 mb-6">
+      ${MODULE_GROUPS.map((mod, modIdx) => {
+        const modMissions = mod.ids.filter(id => id !== 'speedround' || hasTrainerAccess()).map((id, idx) => {
+          return {
+            id,
+            num: mod.numbered ? idx + 1 : null,
+            icon: MISSION_ICONS[id],
+            desc: t(id+'Desc'),
+            title: t(id+'Title'),
+            locked: isMissionLockedForUser(id),
+            globalIdx: MISSION_ORDER.indexOf(id)
+          };
+        });
+        if (!modMissions.length) return '';
+        const allDone = modMissions.every(m => state.completed.has(m.id));
         return `
-        <div class="mission-card ${locked?'locked':'unlocked'} card-enter relative bg-field-800 border ${done?'border-field-success/40':'border-field-700'} rounded-xl p-3 flex items-center gap-3 overflow-hidden" style="animation-delay:${i*50}ms">
-          ${locked?`<div class="locked-overlay absolute inset-0 z-10 flex items-center justify-center gap-1 text-xs font-bold text-gray-400"><i class="fa-solid fa-lock"></i> ${t('lockedBtn')}</div>`:''}
-          <div class="w-10 h-10 rounded-lg ${done?'bg-emerald-500/15 text-emerald-400':'bg-field-700 text-field-accent'} flex items-center justify-center text-lg shrink-0">
-            <i class="fa-solid ${done?'fa-check':m.icon}"></i>
+        <div class="card-enter" style="animation-delay:${modIdx*80}ms">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="h-px flex-1 bg-field-700"></div>
+            <span class="text-[10px] font-bold ${allDone?'text-emerald-400':'text-field-accent'} uppercase tracking-wider whitespace-nowrap">${mod.label ? t(mod.label) : ''}</span>
+            <div class="h-px flex-1 bg-field-700"></div>
           </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2">
-              <span class="text-[10px] font-bold ${done?'text-emerald-400':'text-gray-500'} uppercase tracking-wider">${t('mission')} ${m.num}</span>
-              ${done?`<span class="text-[10px] bg-emerald-500/15 text-emerald-400 px-1.5 py-0.5 rounded font-bold">${t('completed')}</span>`:''}
-            </div>
-            <h3 class="text-sm font-bold text-white truncate">${m.title}</h3>
-            <p class="text-[11px] text-gray-400 truncate">${m.desc}</p>
+          <div class="grid gap-3">
+            ${modMissions.map((m, i) => {
+              const done = state.completed.has(m.id);
+              const locked = m.locked && !done;
+              return `
+              <div class="mission-card ${locked?'locked':'unlocked'} card-enter relative bg-field-800 border ${done?'border-field-success/40':'border-field-700'} rounded-xl p-3 flex items-center gap-3 overflow-hidden" style="animation-delay:${m.globalIdx*50}ms">
+                ${locked?`<div class="locked-overlay absolute inset-0 z-10 flex items-center justify-center gap-1 text-xs font-bold text-gray-400"><i class="fa-solid fa-lock"></i> ${t('lockedBtn')}</div>`:''}
+                <div class="w-10 h-10 rounded-lg ${done?'bg-emerald-500/15 text-emerald-400':'bg-field-700 text-field-accent'} flex items-center justify-center text-lg shrink-0">
+                  <i class="fa-solid ${done?'fa-check':m.icon}"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    ${m.num ? `<span class="text-[10px] font-bold ${done?'text-emerald-400':'text-gray-500'} uppercase tracking-wider">${t('mission')} ${m.num}</span>` : ''}
+                    ${done?`<span class="text-[10px] bg-emerald-500/15 text-emerald-400 px-1.5 py-0.5 rounded font-bold">${t('completed')}</span>`:''}
+                  </div>
+                  <h3 class="text-sm font-bold text-white truncate">${m.title}</h3>
+                  <p class="text-[11px] text-gray-400 truncate">${m.desc}</p>
+                </div>
+                <button onclick="startMission('${m.id}')" class="shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold ${locked?'bg-field-700 text-gray-500 cursor-not-allowed':'bg-field-accent text-field-900 hover:bg-field-accentHover btn-pulse'} transition">
+                  ${done?t('replayBtn'):locked?t('lockedBtn'):t('start')}
+                </button>
+              </div>`;
+            }).join('')}
           </div>
-          <button onclick="startMission('${m.id}')" class="shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold ${locked?'bg-field-700 text-gray-500 cursor-not-allowed':'bg-field-accent text-field-900 hover:bg-field-accentHover btn-pulse'} transition">
-            ${done?t('replayBtn'):locked?t('lockedBtn'):t('start')}
-          </button>
         </div>`;
       }).join('')}
     </div>
@@ -5191,7 +5225,7 @@ function endSpeedRound() {
 }
 
 /* ============================================================
-   13. FINAL QUIZ + CERTIFICATE
+   13. FINAL QUIZ
    ============================================================ */
 function renderFinal() {
   state.view = 'final';
