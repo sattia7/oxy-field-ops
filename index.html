@@ -500,9 +500,14 @@ const I18N = {
   safetyTitle: { en:'AI Safety Rules', ar:'قواعد سلامة الذكاء الاصطناعي' },
   promptTitle: { en:'Prompt Engineering', ar:'هندسة الأوامر' },
   groupTitle: { en:'Group Challenge', ar:'تحدي المجموعة' },
+  galleryTitle: { en:'AI App Gallery', ar:'معرض تطبيقات الذكاء الاصطناعي' },
+  galleryTitle2: { en:'AI Applications Gallery', ar:'معرض تطبيقات الذكاء الاصطناعي' },
+  galleryDesc: { en:'Swipe to explore real field AI use cases.', ar:'اسحب لاستكشاف حالات استخدام حقيقية للذكاء الاصطناعي في الميدان.' },
+  swipeHint: { en:'Swipe cards sideways', ar:'اسحب البطاقات جانبياً' },
+  galleryExplored: { en:'Gallery Explored', ar:'تم استكشاف المعرض' },
   speedroundTitle: { en:'Speed Round', ar:'جولة السرعة' },
   wishTitle: { en:'AI Wish List', ar:'قائمة أمنيات الذكاء الاصطناعي' },
-  finalTitle: { en:'Final Quiz + Cert', ar:'الاختبار النهائي + الشهادة' },
+  finalTitle: { en:'Final Quiz', ar:'الاختبار النهائي' },
 
   // Common buttons
   nextBtn: { en:'Next', ar:'التالي' },
@@ -586,6 +591,7 @@ const I18N = {
   module2Label: { en:'Module 2 — AI in Practice', ar:'الوحدة 2 — الذكاء الاصطناعي في الممارسة' },
   module3Label: { en:'Module 3 — Prompt Engineering', ar:'الوحدة 3 — هندسة الأوامر' },
   module4Label: { en:'Module 4 — AI Tools & Teamwork', ar:'الوحدة 4 — أدوات الذكاء الاصطناعي والعمل الجماعي' },
+  module5Label: { en:'Module 5 — AI App Gallery', ar:'الوحدة 5 — معرض تطبيقات الذكاء الاصطناعي' },
   module6Label: { en:'Module 6 — Innovation', ar:'الوحدة 6 — الابتكار' },
   finalStretch: { en:'Final Stretch', ar:'المرحلة النهائية' },
 
@@ -1366,6 +1372,25 @@ const DAILY_TIPS_AR = [
   "💡 نصيحة: الذكاء الاصطناعي المحلي يعمل حتى عند انقطاع الإنترنت.",
   "💡 نصيحة: التوأم الرقمي يتيح لك اختبار 'ماذا لو' بأمان.",
   "💡 نصيحة: الذكاء الاصطناعي يرى الأنماط؛ البشر يتخذون القرارات.",
+];
+
+const APP_GALLERY = [
+  { icon: 'fa-wrench', title: 'Predictive Maintenance', desc: 'AI models analyze vibration, oil analysis, and thermal data to schedule maintenance before failure.' },
+  { icon: 'fa-plane', title: 'Drone Inspection', desc: 'Autonomous drones with AI vision inspect flare stacks, tanks, and pipelines without scaffolding or rope access.' },
+  { icon: 'fa-shield-halved', title: 'Safety Monitoring', desc: 'Real-time AI video analytics enforce PPE compliance and detect perimeter intrusions or gas leaks.' },
+  { icon: 'fa-smog', title: 'Emissions Tracking', desc: 'AI correlates process data with sensor networks to detect fugitive emissions and quantify GHG leakage.' },
+  { icon: 'fa-microchip', title: 'Edge AI Sensors', desc: 'On-device AI at the edge enables millisecond anomaly detection without cloud dependency or latency.' },
+  { icon: 'fa-headset', title: 'AI Assistant', desc: 'Voice-enabled AI answers technical queries, pulls up procedures, and logs observations hands-free in noisy environments.' },
+  { icon: 'fa-water', title: 'Leak Detection', desc: 'Acoustic and pressure AI models detect pipeline leaks within meters, reducing response time from hours to minutes.' },
+];
+const APP_GALLERY_AR = [
+  { icon: 'fa-wrench', title: 'الصيانة التنبؤية', desc: 'تحلل نماذج الذكاء الاصطناعي الاهتزازات وتحليل الزيوت والبيانات الحرارية لجدولة الصيانة قبل الفشل.' },
+  { icon: 'fa-plane', title: 'تفتيش الطائرات بدون طيار', desc: 'طائرات بدون طيار ذاتية مع رؤية ذكاء اصطناعي تفتش مشاعل الاحتراق والخزانات والأنابيب بدون سقالات أو وصول بالحبال.' },
+  { icon: 'fa-shield-halved', title: 'مراقبة السلامة', desc: 'تحليل فيديو ذكاء اصطناعي في الوقت الفعلي لفرض الالتزام بمعدات الحماية الشخصية واكتشاف التسللات أو تسرب الغاز.' },
+  { icon: 'fa-smog', title: 'تتبع الانبعاثات', desc: 'يربط الذكاء الاصطناعي بيانات العمليات مع شبكات الاستشعار للكشف عن الانبعاثات الهاربة وتحديد تسرب الغازات الدفيئة.' },
+  { icon: 'fa-microchip', title: 'أجهزة استشعار الذكاء الاصطناعي الحافة', desc: 'تمكين الذكاء الاصطناعي على الجهاز من اكتشاف الشذوذ في أجزاء من الثانية دون الاعتماد على السحابة.' },
+  { icon: 'fa-headset', title: 'مساعد الذكاء الاصطناعي', desc: 'ذكاء اصطناعي صوتي يجيب على الاستفسارات الفنية ويستدعي الإجراءات ويسجل الملاحظات دون استخدام اليدين في البيئات الصاخبة.' },
+  { icon: 'fa-water', title: 'كشف التسربات', desc: 'نماذج ذكاء اصطناعي صوتية وضغطية تكشف تسربات الأنابيب بدقة أمتار، مما يقلل وقت الاستجابة من ساعات إلى دقائق.' },
 ];
 
 /* ============================================================
@@ -2772,7 +2797,7 @@ function generateDetailedReport() {
     return;
   }
 
-  const missionNames = { myth:t('mythTitle'), whatis:t('whatisTitle'), jargon:t('jargonTitle'), caps:t('capsTitle'), aiorhuman:t('aiorhumanTitle'), safety:t('safetyTitle'), prompt:t('promptTitle'), aitools:t('aitoolsTitle'), group:t('groupTitle'), speedround:t('speedroundTitle'), wish:t('wishTitle'), final:t('finalTitle') };
+  const missionNames = { myth:t('mythTitle'), whatis:t('whatisTitle'), jargon:t('jargonTitle'), caps:t('capsTitle'), aiorhuman:t('aiorhumanTitle'), safety:t('safetyTitle'), prompt:t('promptTitle'), aitools:t('aitoolsTitle'), group:t('groupTitle'), gallery:t('galleryTitle'), speedround:t('speedroundTitle'), wish:t('wishTitle'), final:t('finalTitle') };
   const badgeNames = { mythbuster:t('mythBusterTitle'), jargonmaster:t('jargonMasterTitle'), aidetective:t('aiDetectiveTitle'), prompteng:t('promptEngineerTitle'), safetyexpert:t('safetyExpertTitle'), fieldai:t('fieldAIOperatorTitle'), graduate:t('fieldAIGraduateTitle') };
 
   let reportSections = '';
@@ -3141,8 +3166,8 @@ function exportCSV() {
   });
 
   // 2. Mission History CSV
-  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','wish','speedround','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
+  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','gallery','wish','speedround','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('galleryTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
   let missionsCSV = t('csvMissionHeader') + '\n';
   users.forEach(u => {
     const s = allStates[u.id] || {};
@@ -3216,8 +3241,8 @@ function generateGroupReport() {
   const activeToday = users.filter(u => { const s = allStates[u.id]; return s?.lastActive && new Date(s.lastActive).toDateString() === new Date().toDateString(); }).length;
 
   // Mission heat map
-  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','wish','speedround','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
+  const missionIds = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','gallery','wish','speedround','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('galleryTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
   const missionCounts = missionIds.map(id => users.filter(u => (allStates[u.id]?.completed||[]).includes(id)).length);
   const mostCompleted = missionTitles[missionCounts.indexOf(Math.max(...missionCounts))];
   const leastCompleted = missionTitles[missionCounts.indexOf(Math.min(...missionCounts))];
@@ -3569,8 +3594,8 @@ function renderTrainerAnalytics() {
   const activities = getActivities();
 
   // Mission completion counts
-  const missionNames = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','wish','speedround','final'];
-  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
+  const missionNames = ['myth','whatis','jargon','caps','aiorhuman','safety','prompt','aitools','group','gallery','wish','speedround','final'];
+  const missionTitles = [t('mythTitle'),t('whatisTitle'),t('jargonTitle'),t('capsTitle'),t('aiorhumanTitle'),t('safetyTitle'),t('promptTitle'),t('aitoolsTitle'),t('groupTitle'),t('galleryTitle'),t('wishTitle'),t('speedroundTitle'),t('finalTitle')];
   const missionCounts = missionNames.map(id => {
     return users.filter(u => {
       const s = allStates[u.id];
@@ -3937,13 +3962,14 @@ function showBadges() {
 /* ============================================================
    MISSION ORDER + NEXT MISSION HELPERS
    ============================================================ */
-const MISSION_ORDER = ['myth', 'whatis', 'jargon', 'caps', 'aiorhuman', 'safety', 'prompt', 'aitools', 'group', 'wish', 'speedround', 'final'];
+const MISSION_ORDER = ['myth', 'whatis', 'jargon', 'caps', 'aiorhuman', 'safety', 'prompt', 'aitools', 'group', 'gallery', 'wish', 'speedround', 'final'];
 const MODULE_GROUPS = [
   { label: 'welcomeExercise', ids: ['myth'], numbered: false },
   { label: 'module1Label', ids: ['whatis', 'jargon', 'caps'], numbered: true },
   { label: 'module2Label', ids: ['aiorhuman', 'safety'], numbered: true },
   { label: 'module3Label', ids: ['prompt'], numbered: true },
   { label: 'module4Label', ids: ['aitools', 'group'], numbered: true },
+  { label: 'module5Label', ids: ['gallery'], numbered: true },
   { label: 'module6Label', ids: ['wish'], numbered: true },
   { label: 'finalStretch', ids: ['speedround', 'final'], numbered: false },
 ];
@@ -3953,14 +3979,16 @@ const MISSION_TITLES = {
   caps: 'AI Capabilities', aiorhuman: 'AI or Human?',
   safety: 'AI Safety Rules',
   prompt: 'Prompt Engineering', aitools: 'AI Tools in Action', group: 'Group Challenge',
+  gallery: 'AI App Gallery',
   speedround: 'Speed Round ⚡',
-  wish: 'AI Wish List', final: 'Final Quiz + Cert'
+  wish: 'AI Wish List', final: 'Final Quiz'
 };
 const MISSION_ICONS = {
   myth: 'fa-fire', whatis: 'fa-robot', jargon: 'fa-book-open',
   caps: 'fa-layer-group', aiorhuman: 'fa-user-secret',
   safety: 'fa-shield-halved',
   prompt: 'fa-terminal', aitools: 'fa-screwdriver-wrench', group: 'fa-users',
+  gallery: 'fa-images',
   speedround: 'fa-bolt',
   wish: 'fa-wand-magic-sparkles', final: 'fa-trophy'
 };
@@ -3971,6 +3999,7 @@ function getMissionTitle(id) {
     caps: 'capsTitle', aiorhuman: 'aiorhumanTitle',
     safety: 'safetyTitle',
     prompt: 'promptTitle', aitools: 'aitoolsTitle', group: 'groupTitle',
+    gallery: 'galleryTitle',
     speedround: 'speedroundTitle',
     wish: 'wishTitle', final: 'finalTitle'
   };
@@ -3987,7 +4016,7 @@ function completeAndAdvance(currentId) {
   // Mark current mission complete and award points
   const pointsMap = {
     myth: 10, whatis: 15, jargon: 20, caps: 20, safety: 25,
-    prompt: 20, aitools: 15, group: 20,
+    prompt: 20, aitools: 15, group: 20, gallery: 15,
     wish: 15, final: 50, aiorhuman: 20, speedround: 20
   };
   const scoreMap = {
@@ -3995,6 +4024,7 @@ function completeAndAdvance(currentId) {
     caps: [() => 0, 1],
     aiorhuman: [() => state.aiorhumanScore, 6], safety: [() => state.safetyScore, 5],
     prompt: [() => 0, 1], aitools: [() => (state.aitoolsVotes || []).length, 5], group: [() => 0, 1],
+    gallery: [() => 0, 1],
     speedround: [() => speedScore || 0, speedTotal || 0], wish: [() => 0, 1],
     final: [() => state.quizScore, QUIZ.length]
   };
@@ -4421,6 +4451,7 @@ function startMission(id) {
     caps: renderCapabilities, aiorhuman: renderAIorHuman,
     safety: renderSafety,
     prompt: renderPrompt, aitools: renderAITools, group: renderGroup,
+    gallery: renderGallery,
     speedround: renderSpeedRound, wish: renderWish, final: renderFinal,
   };
   if (map[id]) map[id]();
@@ -5062,6 +5093,38 @@ function nextAIorHuman() {
   state.aiorhumanIndex++;
   saveState();
   renderAIorHuman();
+}
+
+/* ============================================================
+   11. AI APP GALLERY
+   ============================================================ */
+function renderGallery() {
+  state.view = 'gallery';
+  setView(`${backBtn()}
+    <div class="card-enter">
+      <h2 class="text-lg font-black text-white mb-1">${t('galleryTitle2')}</h2>
+      <p class="text-xs text-gray-400 mb-2">${t('galleryDesc')}</p>
+      <div class="flex items-center justify-center gap-1 mb-3 text-gray-500">
+        <i class="fa-solid fa-hand-pointer text-xs"></i>
+        <span class="text-[10px] swipe-hint">${t('swipeHint')}</span>
+      </div>
+      <div class="carousel-track">
+        ${D(APP_GALLERY, APP_GALLERY_AR).map((app, i) => `
+          <div class="carousel-card bg-field-800 border border-field-700 rounded-xl p-4 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-field-accent/10 text-field-accent flex items-center justify-center text-2xl mb-3">
+              <i class="fa-solid ${app.icon}"></i>
+            </div>
+            <h3 class="text-sm font-bold text-white mb-1">${app.title}</h3>
+            <p class="text-xs text-gray-400 leading-relaxed">${app.desc}</p>
+            <div class="mt-3 w-8 h-1 bg-field-700 rounded-full">
+              <div class="h-full bg-field-accent rounded-full" style="width:${(i+1)/D(APP_GALLERY, APP_GALLERY_AR).length*100}%"></div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <button onclick="markComplete('gallery'); addPoints(15, t('galleryExplored')); goMissions();" class="mt-3 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('completeMission')}</button>
+    </div>
+  `);
 }
 
 /* ============================================================
