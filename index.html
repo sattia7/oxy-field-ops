@@ -144,6 +144,11 @@
       0%, 100% { transform: translateX(0); }
       50% { transform: translateX(12px); }
     }
+    html[dir="rtl"] .swipe-hint { animation-name: swipeBounceRTL; }
+    @keyframes swipeBounceRTL {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-12px); }
+    }
 
     /* Flip card for Jargon Buster */
     .flip-card {
@@ -429,19 +434,19 @@
 
   <!-- Bottom Nav -->
   <nav class="fixed bottom-0 left-0 right-0 bg-field-900/95 backdrop-blur border-t border-field-700 px-4 py-2 flex justify-around items-center z-50 pb-safe">
-    <button onclick="goHome()" id="navHub" class="flex flex-col items-center gap-0.5 text-gray-500">
+    <button onclick="goHome()" id="navHub" class="flex flex-col items-center gap-0.5 text-gray-500 p-2 min-w-[48px] min-h-[48px] justify-center rounded-lg active:bg-field-800">
       <i class="fa-solid fa-house text-lg"></i>
       <span class="text-[10px] font-medium" id="navHubLabel"></span>
     </button>
-    <button onclick="goMissions()" id="navMissions" class="flex flex-col items-center gap-0.5 text-gray-500">
+    <button onclick="goMissions()" id="navMissions" class="flex flex-col items-center gap-0.5 text-gray-500 p-2 min-w-[48px] min-h-[48px] justify-center rounded-lg active:bg-field-800">
       <i class="fa-solid fa-list-check text-lg"></i>
       <span class="text-[10px] font-medium" id="navMissionsLabel"></span>
     </button>
-    <button onclick="showBadges()" id="navAwards" class="flex flex-col items-center gap-0.5 text-gray-500 transition-colors duration-200">
+    <button onclick="showBadges()" id="navAwards" class="flex flex-col items-center gap-0.5 text-gray-500 transition-colors duration-200 p-2 min-w-[48px] min-h-[48px] justify-center rounded-lg active:bg-field-800">
       <i class="fa-solid fa-trophy text-lg"></i>
       <span class="text-[10px] font-medium" id="navAwardsLabel"></span>
     </button>
-    <button onclick="openTrainerDashboard()" id="navTrainer" class="flex flex-col items-center gap-0.5 text-gray-500 transition-colors duration-200" style="display:none">
+    <button onclick="openTrainerDashboard()" id="navTrainer" class="flex flex-col items-center gap-0.5 text-gray-500 transition-colors duration-200 p-2 min-w-[48px] min-h-[48px] justify-center rounded-lg active:bg-field-800" style="display:none">
       <i class="fa-solid fa-chart-simple text-lg"></i>
       <span class="text-[10px] font-medium" id="navTrainerLabel"></span>
     </button>
@@ -1075,7 +1080,6 @@ const I18N = {
   promptEngineeringMasterPts: { en:'Prompt Engineering Master', ar:'خبير هندسة الأوامر' },
   ideaSubmittedPts: { en:'Idea Submitted', ar:'تم إرسال الفكرة' },
   groupWishlist: { en:'Group Wishlist', ar:'قائمة أمنيات المجموعة' },
-  exportCSV: { en:'Export CSV', ar:'تصدير CSV' },
   noWishesYet: { en:'No wishes submitted yet.', ar:'لم تُرسل أمنيات بعد.' },
   roleExample: { en:'You are a senior rotating equipment engineer.', ar:'أنت مهندس معدات دوارة أول.' },
   contextExample: { en:'A centrifugal pump at Station 3B has rising vibration (6.2 mm/s RMS) and discharge pressure fluctuating ±8%.', ar:'مضخة طرد مركزي في المحطة 3B تعاني من ارتفاع الاهتزاز (6.2 مم/ث RMS) وتقلب ضغط التفريغ ±8%.' },
@@ -1128,6 +1132,8 @@ const I18N = {
   missionLockCleared: { en:'Mission lock cleared — following normal progression', ar:'تم إلغاء قفل المهمة — يتبع التسلسل الطبيعي' },
   allMissionsUnlocked: { en:'All missions unlocked for this group', ar:'تم فتح جميع المهام لهذه المجموعة' },
   allMissionsLocked: { en:'All missions locked for this group', ar:'تم قفل جميع المهام لهذه المجموعة' },
+  forceCompleteAllBtn: { en:'Force Complete All', ar:'إجبار إكمال جميع المهام' },
+  allMissionsCompleted: { en:'All missions marked complete!', ar:'تم تعليم جميع الممهام كمكتملة!' },
   aitoolsVoteChart: { en:'AI Tools Voting', ar:'تصويت أدوات الذكاء الاصطناعي' },
   votes: { en:'votes', ar:'تصويت' },
 };
@@ -1196,14 +1202,14 @@ function langSwitchHTML() {
 function D(arr, arrAR) { return CURRENT_LANG === 'ar' && arrAR ? arrAR : arr; }
 
 const MYTHS = [
-  { text: "AI will replace field engineers completely.", answer: false, explain: "AI replaces repetitive tasks, not people. Engineers still make decisions, manage risk, and lead crews." },
-  { text: "AI can predict equipment failures before they happen.", answer: true, explain: "Predictive models analyze vibration, temperature, and pressure trends to flag failures days or weeks ahead." },
-  { text: "AI systems are 100% accurate and never make mistakes.", answer: false, explain: "AI makes mistakes—bad data, edge cases, and bias can all cause errors. Always verify critical outputs." },
-  { text: "You need to be a programmer to use AI in the field.", answer: false, explain: "Modern field AI is built for operators. If you can use a smartphone, you can use field AI tools." },
-  { text: "AI can inspect pipelines using drones and cameras.", answer: true, explain: "Computer vision models detect corrosion, leaks, and anomalies from drone and CCTV footage automatically." },
-  { text: "AI does not need human supervision in safety-critical jobs.", answer: false, explain: "In safety-critical work, AI assists humans. Final decisions and accountability stay with the engineer." },
-  { text: "AI can work with any data, even if it is incomplete or wrong.", answer: false, explain: "AI needs quality data. Garbage in, garbage out. Missing sensors, bad calibration, and typos all reduce accuracy." },
-  { text: "Digital twins let you test scenarios on a virtual copy of real equipment.", answer: true, explain: "A digital twin is a virtual model of physical assets. You can simulate startups, shutdowns, and failures safely." },
+  { text: "AI will replace field engineers completely.", answer: false, explain: "AI replaces repetitive tasks, not people. Engineers still make decisions, manage risk, and lead crews.", img: 'm1-q1.png' },
+  { text: "AI can predict equipment failures before they happen.", answer: true, explain: "Predictive models analyze vibration, temperature, and pressure trends to flag failures days or weeks ahead.", img: 'm1-q2.png' },
+  { text: "AI systems are 100% accurate and never make mistakes.", answer: false, explain: "AI makes mistakes—bad data, edge cases, and bias can all cause errors. Always verify critical outputs.", img: 'm1-q3.png' },
+  { text: "You need to be a programmer to use AI in the field.", answer: false, explain: "Modern field AI is built for operators. If you can use a smartphone, you can use field AI tools.", img: 'm1-q4.png' },
+  { text: "AI can inspect pipelines using drones and cameras.", answer: true, explain: "Computer vision models detect corrosion, leaks, and anomalies from drone and CCTV footage automatically.", img: 'm1-q5.png' },
+  { text: "AI does not need human supervision in safety-critical jobs.", answer: false, explain: "In safety-critical work, AI assists humans. Final decisions and accountability stay with the engineer.", img: 'm1-q6.png' },
+  { text: "AI can work with any data, even if it is incomplete or wrong.", answer: false, explain: "AI needs quality data. Garbage in, garbage out. Missing sensors, bad calibration, and typos all reduce accuracy.", img: 'm1-q7.png' },
+  { text: "Digital twins let you test scenarios on a virtual copy of real equipment.", answer: true, explain: "A digital twin is a virtual model of physical assets. You can simulate startups, shutdowns, and failures safely.", img: 'm1-q8.png' },
 ];
 
 const SAFETY_SCENARIOS = [
@@ -1283,14 +1289,14 @@ const SAFETY_RULES_AR = [
   { title: "بلّغ السلوك الغريب", text: "إذا أعطاك الذكاء الاصطناعي نتائج غريبة أو غير متسقة، بلّغ عنها فوراً. المخرجات الغريبة يمكن أن تشير إلى خطأ في النظام أو البيانات." },
 ];
 const MYTHS_AR = [
-  { text: "الذكاء الاصطناعي سيحل محل مهندسي الميدان بالكامل.", answer: false, explain: "الذكاء الاصطناعي يحل محل المهام المتكررة، وليس البشر. المهندسون ما زالوا يتخذون القرارات ويديرون المخاطر ويقودون الفرق." },
-  { text: "يمكن للذكاء الاصطناعي التنبؤ بفشل المعدات قبل حدوثها.", answer: true, explain: "النماذج التنبؤية تحلل الاهتزاز ودرجة الحرارة واتجاهات الضغط للكشف عن الأعطال قبل أيام أو أسابيع." },
-  { text: "أنظمة الذكاء الاصطناعي دقيقة بنسبة 100% ولا تخطئ أبداً.", answer: false, explain: "الذكاء الاصطناعي يخطئ — البيانات السيئة والحالات النادرة والتحيز يمكن أن تسبب أخطاء. تحقق دائماً من المخرجات الحرجة." },
-  { text: "تحتاج أن تكون مبرمجاً لاستخدام الذكاء الاصطناعي في الميدان.", answer: false, explain: "الذكاء الاصطناعي الميداني الحديث مصمم للمشغلين. إذا كنت تستطيع استخدام الهاتف الذكي، يمكنك استخدام أدوات الذكاء الاصطناعي الميدانية." },
-  { text: "يمكن للذكاء الاصطناعي فحص خطوط الأنابيب باستخدام الطائرات بدون طيار والكاميرات.", answer: true, explain: "نماذج الرؤية الحاسوبية تكتشف التآكل والتسريبات والشذوذ من لقطات الطائرات بدون طيار وكاميرات المراقبة تلقائياً." },
-  { text: "الذكاء الاصطناعي لا يحتاج إلى إشراف بشري في المهام الحرجة للسلامة.", answer: false, explain: "في الأعمال الحرجة للسلامة، يساعد الذكاء الاصطناعي البشر. القرارات النهائية والمساءلة تبقى مع المهندس." },
-  { text: "يمكن للذكاء الاصطناعي تحسين جداول الصيانة لتوفير التكاليف.", answer: true, explain: "الصيانة التنبؤية المدعومة بالذكاء الاصطناعي تقلل من وقت التوقف غير المخطط له بنسبة تصل إلى 30% وتطيل عمر المعدات." },
-  { text: "الذكاء الاصطناعي يفهم السياق مثل الإنسان.", answer: false, explain: "الذكاء الاصطناعي يفتقر إلى الفهم الحقيقي. يعالج الأنماط والإحصائيات لكنه لا يفهم حقاً 'لماذا' كما يفعل المهندس ذو الخبرة." },
+  { text: "الذكاء الاصطناعي سيحل محل مهندسي الميدان بالكامل.", answer: false, explain: "الذكاء الاصطناعي يحل محل المهام المتكررة، وليس البشر. المهندسون ما زالوا يتخذون القرارات ويديرون المخاطر ويقودون الفرق.", img: 'm1-q1.png' },
+  { text: "يمكن للذكاء الاصطناعي التنبؤ بفشل المعدات قبل حدوثها.", answer: true, explain: "النماذج التنبؤية تحلل الاهتزاز ودرجة الحرارة واتجاهات الضغط للكشف عن الأعطال قبل أيام أو أسابيع.", img: 'm1-q2.png' },
+  { text: "أنظمة الذكاء الاصطناعي دقيقة بنسبة 100% ولا تخطئ أبداً.", answer: false, explain: "الذكاء الاصطناعي يخطئ — البيانات السيئة والحالات النادرة والتحيز يمكن أن تسبب أخطاء. تحقق دائماً من المخرجات الحرجة.", img: 'm1-q3.png' },
+  { text: "تحتاج أن تكون مبرمجاً لاستخدام الذكاء الاصطناعي في الميدان.", answer: false, explain: "الذكاء الاصطناعي الميداني الحديث مصمم للمشغلين. إذا كنت تستطيع استخدام الهاتف الذكي، يمكنك استخدام أدوات الذكاء الاصطناعي الميدانية.", img: 'm1-q4.png' },
+  { text: "يمكن للذكاء الاصطناعي فحص خطوط الأنابيب باستخدام الطائرات بدون طيار والكاميرات.", answer: true, explain: "نماذج الرؤية الحاسوبية تكتشف التآكل والتسريبات والشذوذ من لقطات الطائرات بدون طيار وكاميرات المراقبة تلقائياً.", img: 'm1-q5.png' },
+  { text: "الذكاء الاصطناعي لا يحتاج إلى إشراف بشري في المهام الحرجة للسلامة.", answer: false, explain: "في الأعمال الحرجة للسلامة، يساعد الذكاء الاصطناعي البشر. القرارات النهائية والمساءلة تبقى مع المهندس.", img: 'm1-q6.png' },
+  { text: "يمكن للذكاء الاصطناعي العمل مع أي بيانات، حتى لو كانت غير كاملة أو خاطئة.", answer: false, explain: "يحتاج الذكاء الاصطناعي إلى بيانات عالية الجودة. البيانات السيئة تُنتج نتائج سيئة. أجهزة الاستشعار المعطلة والمعايرة الخاطئة والأخطاء المطبعية كلها تقلل الدقة.", img: 'm1-q7.png' },
+  { text: "التوائم الرقمية تتيح لك اختبار السيناريوهات على نسخة افتراضية من المعدات الحقيقية.", answer: true, explain: "التوأم الرقمي هو نموذج افتراضي للأصول الفعلية. يمكنك محاكاة عمليات البدء والإيقاف والأعطال بأمان.", img: 'm1-q8.png' },
 ];
 
 const QUIZ = [
@@ -1442,7 +1448,7 @@ const QUIZ_AR = [
   { q: "ماذا يجب أن تفعل إذا أعطى نظام الذكاء الاصطناعي نتيجة غريبة؟", options: ["تجاهلها", "الإبلاغ عنها والتحقق منها مع زميل أو مشرف", "إعادة تشغيل النظام", "قبولها كما هي"], a: 1, explain: "المخرجات الغريبة يمكن أن تشير إلى مشاكل في البيانات أو أعطال في النظام. دائماً قم بالإبلاغ عنها — يمكن أن تمنع وقوع حادث." },
   { q: "ما هو التعلم العميق؟", options: ["دراسة المواضيع المعقدة بعمق", "شبكات عصبية متعددة الطبقات تتعلم أنماطاً معقدة", "حفر الآبار العميقة", "قراءة الأدلة التقنية"], a: 1, explain: "التعلم العميق يستخدم طبقات متعددة من 'الخلايا العصبية' للتعرف على الأنماط المعقدة للغاية — مثل اكتشاف التآكل في صور خطوط الأنابيب." },
   { q: "ما هو مثال على الذكاء الاصطناعي في العمليات الميدانية اليوم؟", options: ["آلة حاسبة", "نظام كاميرا يكتشف التسرب تلقائياً", "مفتاح ربط", "مقياس ضغط"], a: 1, explain: "أنظمة الكشف عن التسرب المدعومة بالذكاء الاصطناعي تستخدم الكاميرات وخوارزميات الرؤية الحاسوبية لاكتشاف ومنع المخاطر البيئية." },
-  { q: "كم عدد المهام اللازمة لإتقان المفاهيم الأساسية للذكاء الاصطناعي؟", options: ["مهمة واحدة", "جميع المهام الـ 15", "المهمة الأخيرة فقط", "لا تحتاج لأي مهام"], a: 1, explain: "كل مهمة تبني مهارة محددة. إكمال جميع المهام الـ 15 يمنحك أساساً شاملاً للذكاء الاصطناعي الميداني." },
+  { q: "كم عدد المهام اللازمة لإتقان المفاهيم الأساسية للذكاء الاصطناعي؟", options: ["مهمة واحدة", "جميع المهام الـ 13", "المهمة الأخيرة فقط", "لا تحتاج لأي مهام"], a: 1, explain: "كل مهمة تبني مهارة محددة. إكمال جميع المهام الـ 13 يمنحك أساساً شاملاً للذكاء الاصطناعي الميداني." },
   { q: "ما هو دور الذكاء الاصطناعي في اكتشاف الشذوذ؟", options: ["لا دور له", "الإبلاغ عن الحالات الشاذة في بيانات المستشعرات", "إصلاح المعدات", "كتابة التقارير"], a: 1, explain: "الذكاء الاصطناعي يراقب بيانات المستشعرات باستمرار ويبلغ عن الأنماط غير الطبيعية — غالباً قبل أن يلاحظ المشغلون البشريون أي خطأ." },
   { q: "لماذا من المهم لمهندسي الميدان فهم أساسيات الذكاء الاصطناعي؟", options: ["ليس مهماً", "لاستبدال المبرمجين", "لاتخاذ قرارات أفضل والتحقق بشكل صحيح من اقتراحات الذكاء الاصطناعي", "لإصلاح أجهزة الكمبيوتر"], a: 2, explain: "معرفة كيفية عمل الذكاء الاصطناعي يساعدك على الثقة به عند الحاجة والتشكيك فيه عند الضرورة — أنت الخبير الأخير." },
 ];
@@ -1462,12 +1468,12 @@ const SAFETY_SCENARIOS_AR = [
   { scenario: "يتنبأ نموذج الصيانة التنبؤية بفشل خلال 30 يوماً. تنتظر 28 يوماً قبل جدولة الإصلاح لتوفير وقت الإنتاج.", safe: false, explain: "غير آمن! التنبؤات لها فترات ثقة. الانتظار حتى آخر يومين يخاطر بفشل مبكر غير متوقع وعواقب خطيرة." },
 ];
 const JARGON_AR = [
-  { term: "الصيانة التنبؤية", field: "استخدام بيانات المستشعرات والذكاء الاصطناعي للتنبؤ بموعد فشل المعدات — الإصلاح قبل حدوث العطل مباشرة.", example: "اكتشاف الاهتزاز المتزايد قبل 5 أيام من فشل المحمل." },
-  { term: "التوأم الرقمي", field: "نسخة افتراضية لمعداتك لتشغيل المحاكاة.", example: "اختبار تسلسل بدء التشغيل على ضاغط افتراضي قبل لمس الضاغط الحقيقي." },
-  { term: "الشبكة العصبية", field: "نظام ذكاء اصطناعي مصمم على غرار الدماغ البشري — طبقات من 'الخلايا العصبية' تتعلم الأنماط.", example: "التعرف على التآكل في صور خطوط الأنابيب من آلاف الأمثلة." },
-  { term: "اكتشاف الشذوذ", field: "الذكاء الاصطناعي الذي يتعلم الشكل 'الطبيعي' ويبلغ عندما يكون شيء ما مختلفاً.", example: "الإبلاغ عن انخفاض مفاجئ في ضغط رأس البئر لا يتطابق مع أنماط التدفق العادية." },
-  { term: "التعلم الخاضع للإشراف", field: "تدريب الذكاء الاصطناعي على أمثلة معنونة حيث تكون الإجابات معروفة.", example: "إظهار 10,000 صورة معنونة 'تآكل' أو 'لا تآكل' للذكاء الاصطناعي." },
-  { term: "هندسة الأوامر", field: "فن كتابة أسئلة واضحة ومحددة السياق للحصول على أفضل إجابات من الذكاء الاصطناعي.", example: "بدلاً من 'مشكلة المضخة؟'، اكتب: 'أنت مهندس ميداني كبير. المضخة P-201...'" },
+  { term: "التعلم الآلي", field: "الذكاء الاصطناعي يتعلم من البيانات السابقة، مثل المشغل الكبير الذي يتذكر كل عطل.", example: "كلما رأى المزيد من أعطال المضخات، كلما كان تنبؤه بالعطل التالي أفضل." },
+  { term: "الرؤية الحاسوبية", field: "ذكاء اصطناعي يراقب الكاميرات والصور كمفتش سلامة رقمي.", example: "تتحقق مما إذا كان الجميع يرتدون الخوذات من خلاصات كاميرات المراقبة." },
+  { term: "الصيانة التنبؤية", field: "إصلاح الأشياء قبل أن تتعطل، بناءً على اتجاهات البيانات.", example: "تغيير المحمل لأن الاهتزاز في تزايد، وليس لأنه علق." },
+  { term: "الذكاء الاصطناعي على الحافة", field: "ذكاء اصطناعي يعمل على الأجهزة الميدانية دون الحاجة إلى الإنترنت.", example: "مستشعر على خط الأنابيب يكشف التسربات في أجزاء من الثانية دون تأخير السحابة." },
+  { term: "الهلوسة", field: "عندما يختلق الذكاء الاصطناعي إجابة تبدو صحيحة لكنها خاطئة.", example: "الذكاء الاصطناعي يخترع خطوة صيانة غير موجودة في الإجراء الرسمي." },
+  { term: "التوأم الرقمي", field: "نسخة افتراضية من معداتك لتشغيل المحاكاة.", example: "اختبار تسلسل بدء التشغيل على ضاغط افتراضي قبل لمس الضاغط الحقيقي." },
 ];
 const SPEED_ROUND_QUESTIONS_AR = [
   { q: "الذكاء الاصطناعي يمكنه التنبؤ بفشل المعدات", opts: ["صح", "خطأ", "في بعض الأحيان", "فقط للصيانة"], a: 0 },
@@ -1557,6 +1563,7 @@ function createFreshState() {
     aiorhumanIndex: 0, aiorhumanScore: 0,
     promptBonusAwarded: false,
     aitoolsIndex: 0, aitoolsVotes: [],
+    groupVoted: false,
   };
 }
 
@@ -1631,6 +1638,14 @@ function lockAllMissions() {
   renderTrainerControls();
   if (state.view === 'home' || state.view === 'missions') goMissions();
 }
+function forceCompleteAll() {
+  MISSION_ORDER.forEach(id => markComplete(id));
+  addPoints(200, t('allMissionsCompleted'));
+  saveState();
+  showToast(t('allMissionsCompleted'), 'success');
+  if (state.view === 'trainerControls') renderTrainerControls();
+  if (state.view === 'home' || state.view === 'missions') goMissions();
+}
 
 function archiveCurrentGroup() {
   const users = getUsers();
@@ -1674,6 +1689,7 @@ function saveUserState(uid, s) {
     aiorhumanIndex: s.aiorhumanIndex, aiorhumanScore: s.aiorhumanScore,
     promptBonusAwarded: s.promptBonusAwarded || false,
     aitoolsIndex: s.aitoolsIndex || 0, aitoolsVotes: s.aitoolsVotes || [],
+    groupVoted: s.groupVoted || false,
   };
   setAllStates(all);
 
@@ -1861,38 +1877,44 @@ function migrateLegacyData() {
    STATE MANAGEMENT (refactored for multi-user)
    ============================================================ */
 function loadState() {
-  // Check for legacy migration
-  if (localStorage.getItem('aiFieldOpsState') && !localStorage.getItem('aiFieldOpsUsers')) {
-    migrateLegacyData();
-  }
-
-  activeUserId = getActiveUserId();
-  if (activeUserId) {
-    const s = getUserState(activeUserId);
-    if (s) {
-      state.points = s.points || 0;
-      state.completed = new Set(s.completed || []);
-      state.badges = new Set(s.badges || []);
-      state.missionHistory = s.missionHistory || {};
-      state.badgeHistory = s.badgeHistory || {};
-      state.pointLog = s.pointLog || [];
-      state.mythIndex = s.mythIndex || 0;
-      state.mythScore = s.mythScore || 0;
-      state.safetyIndex = s.safetyIndex || 0;
-      state.safetyScore = s.safetyScore || 0;
-      state.quizIndex = s.quizIndex || 0;
-      state.quizScore = s.quizScore || 0;
-      state.wishes = s.wishes || [];
-      state.streak = s.streak || 0;
-      state.lastActive = s.lastActive || null;
-      state.loginCount = (s.loginCount || 0); // loaded from storage, incremented on init only
-      state.jargonIndex = s.jargonIndex || 0;
-      state.aiorhumanIndex = s.aiorhumanIndex || 0;
-      state.aiorhumanScore = s.aiorhumanScore || 0;
-      state.promptBonusAwarded = s.promptBonusAwarded || false;
-      state.aitoolsIndex = s.aitoolsIndex || 0;
-      state.aitoolsVotes = s.aitoolsVotes || [];
+  try {
+    // Check for legacy migration
+    if (localStorage.getItem('aiFieldOpsState') && !localStorage.getItem('aiFieldOpsUsers')) {
+      migrateLegacyData();
     }
+
+    activeUserId = getActiveUserId();
+    if (activeUserId) {
+      const s = getUserState(activeUserId);
+      if (s) {
+        state.points = s.points || 0;
+        state.completed = new Set(Array.isArray(s.completed) ? s.completed : []);
+        state.badges = new Set(Array.isArray(s.badges) ? s.badges : []);
+        state.missionHistory = s.missionHistory || {};
+        state.badgeHistory = s.badgeHistory || {};
+        state.pointLog = s.pointLog || [];
+        state.mythIndex = s.mythIndex || 0;
+        state.mythScore = s.mythScore || 0;
+        state.safetyIndex = s.safetyIndex || 0;
+        state.safetyScore = s.safetyScore || 0;
+        state.quizIndex = s.quizIndex || 0;
+        state.quizScore = s.quizScore || 0;
+        state.wishes = s.wishes || [];
+        state.streak = s.streak || 0;
+        state.lastActive = s.lastActive || null;
+        state.loginCount = (s.loginCount || 0);
+        state.jargonIndex = s.jargonIndex || 0;
+        state.aiorhumanIndex = s.aiorhumanIndex || 0;
+        state.aiorhumanScore = s.aiorhumanScore || 0;
+        state.promptBonusAwarded = s.promptBonusAwarded || false;
+        state.aitoolsIndex = s.aitoolsIndex || 0;
+        state.aitoolsVotes = s.aitoolsVotes || [];
+        state.groupVoted = s.groupVoted || false;
+      }
+    }
+  } catch(e) {
+    console.error('State load error, resetting:', e);
+    state = createFreshState();
   }
 }
 function saveState() {
@@ -2140,7 +2162,7 @@ function showToast(msg, type='info') {
   const colorClass = colors[type] || colors.info;
   el.className = `toast pointer-events-auto px-3 py-2.5 rounded-lg border text-sm font-semibold flex items-center gap-2 ${colorClass}`;
   const icons = { success:'fa-circle-check', badge:'fa-medal', info:'fa-circle-info', error:'fa-triangle-exclamation' };
-  el.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i> ${msg}`;
+  el.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i> ${escHtml(msg)}`;
   container.appendChild(el);
   setTimeout(() => el.remove(), 3300);
 }
@@ -2416,7 +2438,7 @@ function showWelcomeScreen(user) {
 
       <div class="bg-field-accent/5 border border-field-accent/20 rounded-xl p-3 mb-5">
         <p class="text-[11px] text-gray-300 leading-relaxed">
-          <i class="fa-solid fa-lightbulb text-field-accent mr-1"></i>
+          <i class="fa-solid fa-lightbulb text-field-accent me-1"></i>
           <b class="text-white">${t('heresHowItWorks')}</b> ${t('completeEachMission')}
         </p>
       </div>
@@ -2547,17 +2569,17 @@ function renderTrainerDashboard() {
           ${syncEnabled?t('cloudConnected'):t('offlineMode')}
         </div>
         ${syncEnabled?`<button onclick="pullRemoteData()" class="px-2 py-1 rounded-md text-[10px] font-bold bg-field-accent/15 text-field-accent border border-field-accent/30 hover:bg-field-accent/25 transition">
-          <i class="fa-solid fa-rotate mr-1"></i>${t('refreshData') || 'Refresh'}
+          <i class="fa-solid fa-rotate me-1"></i>${t('refreshData') || 'Refresh'}
         </button>`:''}
       </div>
 
       <!-- Tabs -->
       <div class="flex gap-1 mb-4 bg-field-800 rounded-xl p-1">
-        <button onclick="switchTrainerTab('overview')" class="trainer-tab flex-1 ${tab==='overview'?'active':''}"><i class="fa-solid fa-chart-pie mr-1"></i>${t('overview')}</button>
-        <button onclick="switchTrainerTab('users')" class="trainer-tab flex-1 ${tab==='users'?'active':''}"><i class="fa-solid fa-users mr-1"></i>${t('users')}</button>
-        <button onclick="switchTrainerTab('analytics')" class="trainer-tab flex-1 ${tab==='analytics'?'active':''}"><i class="fa-solid fa-chart-bar mr-1"></i>${t('analytics')}</button>
-        <button onclick="switchTrainerTab('activity')" class="trainer-tab flex-1 ${tab==='activity'?'active':''}"><i class="fa-solid fa-timeline mr-1"></i>${t('activity')}</button>
-        <button onclick="switchTrainerTab('controls')" class="trainer-tab flex-1 ${tab==='controls'?'active':''}"><i class="fa-solid fa-sliders mr-1"></i>${t('missionControls')}</button>
+        <button onclick="switchTrainerTab('overview')" class="trainer-tab flex-1 ${tab==='overview'?'active':''}"><i class="fa-solid fa-chart-pie me-1"></i>${t('overview')}</button>
+        <button onclick="switchTrainerTab('users')" class="trainer-tab flex-1 ${tab==='users'?'active':''}"><i class="fa-solid fa-users me-1"></i>${t('users')}</button>
+        <button onclick="switchTrainerTab('analytics')" class="trainer-tab flex-1 ${tab==='analytics'?'active':''}"><i class="fa-solid fa-chart-bar me-1"></i>${t('analytics')}</button>
+        <button onclick="switchTrainerTab('activity')" class="trainer-tab flex-1 ${tab==='activity'?'active':''}"><i class="fa-solid fa-timeline me-1"></i>${t('activity')}</button>
+        <button onclick="switchTrainerTab('controls')" class="trainer-tab flex-1 ${tab==='controls'?'active':''}"><i class="fa-solid fa-sliders me-1"></i>${t('missionControls')}</button>
       </div>
 
       ${content}
@@ -2635,12 +2657,12 @@ function renderTrainerOverview() {
       </div>
       <div class="kpi-card bg-field-800 border border-field-700 rounded-xl p-3">
         <p class="text-[10px] text-gray-400 uppercase tracking-wider">${t('avgQuizScore')}</p>
-        <p class="text-xl font-black text-rose-400"><span dir="ltr"><span dir="ltr">${avgQuizScore}/${QUIZ.length}</span></span></p>
+        <p class="text-xl font-black text-rose-400"><span dir="ltr">${avgQuizScore}/${QUIZ.length}</span></p>
         <p class="text-[10px] text-gray-400">${quizTakers} ${t('takers')}</p>
       </div>
       <div class="kpi-card bg-field-800 border border-field-700 rounded-xl p-3">
         <p class="text-[10px] text-gray-400 uppercase tracking-wider">${t('avgCompletion')}</p>
-        <p class="text-xl font-black text-sky-400"><span dir="ltr"><span dir="ltr">${avgCompletion}/${MISSION_ORDER.length}</span></span></p>
+        <p class="text-xl font-black text-sky-400"><span dir="ltr">${avgCompletion}/${MISSION_ORDER.length}</span></p>
         <p class="text-[10px] text-gray-400">${totalMissions} ${t('totalMissions')}</p>
       </div>
       <div class="kpi-card bg-field-800 border border-field-700 rounded-xl p-3">
@@ -2669,7 +2691,7 @@ function renderTrainerOverview() {
             <span class="text-lg">${u?u.avatar:'👷'}</span>
             <div class="flex-1 min-w-0">
               <p class="text-[11px] text-white font-semibold truncate">${u?escHtml(u.name):t('unknown')}</p>
-              <p class="text-[10px] text-gray-400 truncate">${a.details} ${a.points?`+${a.points} ${t('pts')}`:''}</p>
+              <p class="text-[10px] text-gray-400 truncate">${a.details} ${a.points?`<span dir="ltr">+${a.points}</span> ${t('pts')}`:''}</p>
             </div>
             <span class="text-[10px] text-gray-500 shrink-0">${timeAgo(a.timestamp)}</span>
           </div>`;
@@ -2698,7 +2720,7 @@ function renderTrainerOverview() {
               <p class="text-[10px] text-gray-400">${g.userCount} ${t('usersArchivedLabel')} • ${t('archivedStatus')} ${fmtDate(g.archivedAt)}</p>
             </div>
             <button onclick="generateMultiGroupReport()" class="px-3 py-1.5 bg-field-accent/10 border border-field-accent/30 text-field-accent rounded-lg text-[10px] font-bold hover:bg-field-accent/20 transition">
-              <i class="fa-solid fa-layer-group mr-1"></i> ${t('multiGroupReport')}
+              <i class="fa-solid fa-layer-group me-1"></i> ${t('multiGroupReport')}
             </button>
           </div>
         `).join('')}
@@ -2774,6 +2796,7 @@ function executeResetDatabase() {
   localStorage.removeItem('aiFieldOpsState'); // legacy too
   localStorage.removeItem('aiFieldOpsActiveGroup');
   localStorage.removeItem('aiFieldOpsArchivedGroups');
+  localStorage.removeItem('aiFieldOpsMissionLocks');
   setActiveUserId(null);
   state = createFreshState();
   activeUserId = null;
@@ -2823,7 +2846,7 @@ function generateDetailedReport() {
     let pointLogHtml = '';
     if (pointLog.length > 0) {
       pointLogHtml = pointLog.slice(0, 50).map(p => `
-        <tr><td style="padding:4px 8px;border-bottom:1px solid #374151;font-size:11px;color:#9ca3af">${fmtDateTime(p.timestamp)}</td><td style="padding:4px 8px;border-bottom:1px solid #374151;font-size:11px;color:#f59e0b;text-align:right;font-weight:bold">+${p.amount}</td><td style="padding:4px 8px;border-bottom:1px solid #374151;font-size:11px;color:#d1d5db">${p.reason || ''}</td></tr>
+        <tr><td style="padding:4px 8px;border-bottom:1px solid #374151;font-size:11px;color:#9ca3af">${fmtDateTime(p.timestamp)}</td><td style="padding:4px 8px;border-bottom:1px solid #374151;font-size:11px;color:#f59e0b;text-align:right;font-weight:bold"><span dir="ltr">+${p.amount}</span></td><td style="padding:4px 8px;border-bottom:1px solid #374151;font-size:11px;color:#d1d5db">${p.reason || ''}</td></tr>
       `).join('');
     }
 
@@ -2885,7 +2908,7 @@ function generateDetailedReport() {
         </div>
         <div style="margin-left:auto;text-align:right">
           <p style="margin:0;color:#f59e0b;font-size:20px;font-weight:bold">${totalPoints} ${t('pts')}</p>
-          <p style="margin:0;color:#9ca3af;font-size:11px">${pct}% ${t('doneKPI')}</p>
+          <p style="margin:0;color:#9ca3af;font-size:11px"><span dir="ltr">${pct}%</span> ${t('doneKPI')}</p>
         </div>
       </div>
 
@@ -3115,7 +3138,7 @@ function executeMultiGroupReport() {
     const avgPts = gUsers.length ? Math.round(pts/gUsers.length) : 0;
     const avgDone = gUsers.length ? Math.round(done/gUsers.length) : 0;
     const rate = gUsers.length ? Math.round(done/(gUsers.length*MISSION_ORDER.length)*100) : 0;
-    return `<tr><td style="font-weight:bold;color:#fff">${gName}</td><td>${gUsers.length}</td><td style="color:#f59e0b">${pts}</td><td>${avgPts}</td><td><span dir="ltr">${avgDone}/${MISSION_ORDER.length}</span></td><td style="color:#e11d48"><span dir="ltr">${avgQuiz}/${QUIZ.length}</span></td><td style="color:#10b981">${badges}</td><td><span style="background:#f59e0b22;color:#f59e0b;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:bold">${rate}%</span></td></tr>`;
+    return `<tr><td style="font-weight:bold;color:#fff">${gName}</td><td>${gUsers.length}</td><td style="color:#f59e0b">${pts}</td><td>${avgPts}</td><td><span dir="ltr">${avgDone}/${MISSION_ORDER.length}</span></td><td style="color:#e11d48"><span dir="ltr">${avgQuiz}/${QUIZ.length}</span></td><td style="color:#10b981">${badges}</td><td><span style="background:#f59e0b22;color:#f59e0b;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:bold"><span dir="ltr">${rate}%</span></span></td></tr>`;
   }).join('')}
   </tbody></table></div>
 
@@ -3349,6 +3372,7 @@ function generateGroupReport() {
     .kpi-value { font-size: 28px; font-weight: 900; margin: 0; }
     .kpi-label { font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin: 4px 0 0; }
     .insight { background: rgba(245,158,11,0.05); border-left: 3px solid #f59e0b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 13px; line-height: 1.6; }
+    [dir="rtl"] .insight { border-left: none; border-right: 3px solid #f59e0b; border-radius: 8px 0 0 8px; }
     .highlight { color: #f59e0b; font-weight: bold; }
     @media print { body { background: #fff; color: #000; } .card, .kpi { background: #f9fafb; border-color: #e5e7eb; } }
   </style>
@@ -3573,7 +3597,7 @@ function renderTrainerUsersTable() {
               <td class="py-2.5 pr-2 text-center">
                 <div class="flex items-center gap-1 justify-center">
                   <span class="text-[11px] font-bold ${pct>=60?'text-emerald-400':pct>=30?'text-amber-400':'text-gray-400'}"><span dir="ltr">${completed}/${MISSION_ORDER.length}</span></span>
-                  <span class="text-[10px] text-gray-500">(${pct}%)</span>
+                  <span class="text-[10px] text-gray-500">(<span dir="ltr">${pct}%</span>)</span>
                 </div>
               </td>
               <td class="py-2.5 pr-2 text-center text-xs font-bold ${quizScore>=QUIZ_PASSING_SCORE?'text-emerald-400':quizScore>0?'text-amber-400':'text-gray-500'}"><span dir="ltr">${quizScore}/${QUIZ.length}</span></td>
@@ -3741,7 +3765,7 @@ function renderTrainerAnalytics() {
     <!-- Group Wishlist -->
     <div class="flex items-center justify-between mt-4 mb-2">
       <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">${t('groupWishlist')}</h3>
-      <button onclick="exportWishesCSV()" class="px-2 py-1 rounded-lg text-[10px] font-bold bg-field-accent text-field-900 hover:bg-field-accent/80 transition"><i class="fa-solid fa-download mr-1"></i>${t('exportCSV')}</button>
+      <button onclick="exportWishesCSV()" class="px-2 py-1 rounded-lg text-[10px] font-bold bg-field-accent text-field-900 hover:bg-field-accent/80 transition"><i class="fa-solid fa-download me-1"></i>${t('exportCSV')}</button>
     </div>
     <div class="grid gap-2">
       ${(() => {
@@ -3803,7 +3827,7 @@ function renderTrainerActivityFeed() {
             <p class="text-[11px] text-gray-400 mt-0.5">${a.details}</p>
             <div class="flex items-center gap-2 mt-1">
               <span class="text-[10px] text-gray-500">${fmtDateTime(a.timestamp)}</span>
-              ${a.points ? `<span class="text-[10px] text-field-accent font-bold">+${a.points} ${t('pts')}</span>` : ''}
+              ${a.points ? `<span class="text-[10px] text-field-accent font-bold"><span dir="ltr">+${a.points}</span> ${t('pts')}</span>` : ''}
             </div>
           </div>
         </div>`;
@@ -3823,8 +3847,9 @@ function renderTrainerControls() {
     <div class="space-y-3">
       <p class="text-xs text-gray-400">${t('missionControls')} — ${group ? group.name : t('noGroup')}</p>
       <div class="flex gap-2 mb-2">
-        <button onclick="unlockAllMissions()" class="flex-1 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock-open mr-1"></i> ${t('forceUnlock')} ${t('all')}</button>
-        <button onclick="lockAllMissions()" class="flex-1 py-2 bg-field-danger text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock mr-1"></i> ${t('forceLock')} ${t('all')}</button>
+        <button onclick="forceCompleteAll()" class="flex-1 py-2 bg-field-accent text-field-900 rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-check-double me-1"></i> ${t('forceCompleteAllBtn')}</button>
+        <button onclick="unlockAllMissions()" class="flex-1 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock-open me-1"></i> ${t('forceUnlock')} ${t('all')}</button>
+        <button onclick="lockAllMissions()" class="flex-1 py-2 bg-field-danger text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock me-1"></i> ${t('forceLock')} ${t('all')}</button>
       </div>
       <div class="grid gap-2">
         ${missions.map(id => {
@@ -3887,7 +3912,7 @@ function downloadAIPocketCard() {
 body { font-family: Arial, sans-serif; padding: 20px; background: #fff; color: #0f172a; }
 .card { border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; max-width: 420px; margin: 0 auto; }
 h1 { font-size: 18px; color: #f59e0b; margin-bottom: 12px; text-align: center; }
-ul { padding-left: 18px; font-size: 13px; line-height: 1.8; }
+ul { padding-inline-start: 18px; font-size: 13px; line-height: 1.8; }
 li { margin-bottom: 6px; }
 .footer { text-align: center; font-size: 10px; color: #6b7280; margin-top: 16px; }
 @media print { body { padding: 0; } .no-print { display: none; } }
@@ -4020,7 +4045,7 @@ function completeAndAdvance(currentId) {
     wish: 15, final: 50, aiorhuman: 20, speedround: 20
   };
   const scoreMap = {
-    myth: [() => state.mythScore, 8], jargon: [() => state.jargonIndex, 6],
+    myth: [() => state.mythScore, 8], whatis: [() => 0, 1], jargon: [() => state.jargonIndex, 6],
     caps: [() => 0, 1],
     aiorhuman: [() => state.aiorhumanScore, 6], safety: [() => state.safetyScore, 5],
     prompt: [() => 0, 1], aitools: [() => (state.aitoolsVotes || []).length, 5], group: [() => 0, 1],
@@ -4299,6 +4324,17 @@ function shuffleArray(arr) {
   }
   return a;
 }
+function getShuffledQuestion(index) {
+  const q = D(QUIZ, QUIZ_AR)[index];
+  const opts = q.options.map((text, origIdx) => ({ text, isCorrect: origIdx === q.a }));
+  const shuffled = shuffleArray(opts);
+  return {
+    q: q.q,
+    options: shuffled.map(o => o.text),
+    a: shuffled.findIndex(o => o.isCorrect),
+    explain: q.explain
+  };
+}
 
 /* ============================================================
    HOME SCREEN
@@ -4418,6 +4454,7 @@ function getPrevMissionId(id) {
 }
 
 function isMissionLockedForUser(missionId) {
+  if (!MISSION_ORDER.includes(missionId)) return true;
   if (missionId === 'myth') return false;
   const prevId = getPrevMissionId(missionId);
   const override = getEffectiveLock(missionId);
@@ -4433,6 +4470,7 @@ function resetMission(id) {
     case 'safety': state.safetyIndex = 0; state.safetyScore = 0; break;
     case 'prompt': state.promptBonusAwarded = false; break;
     case 'aitools': state.aitoolsIndex = 0; state.aitoolsVotes = []; break;
+    case 'group': state.groupVoted = false; break;
     case 'final': state.quizIndex = 0; state.quizScore = 0; break;
   }
   saveState();
@@ -4470,7 +4508,7 @@ function renderMyth() {
           <i class="fa-solid fa-check"></i>
         </div>
         <h2 class="text-lg font-black text-white">${t('mythCleared')}</h2>
-        <p class="text-sm text-gray-400 mt-1">${t('score')}: <span dir="ltr"><span dir="ltr">${state.mythScore}/${MYTHS.length}</span></span></p>
+        <p class="text-sm text-gray-400 mt-1">${t('score')}: <span dir="ltr">${state.mythScore}/${MYTHS.length}</span></p>
         ${state.mythScore >= 6 ? `<p class="text-xs text-emerald-400 mt-2 font-semibold">${t('mythBusterBadgeEarned')}</p>` : ''}
         ${nextMissionBtn('myth')}
         <button onclick="state.mythIndex=0; state.mythScore=0; saveState(); renderMyth();" class="mt-3 px-4 py-2 bg-field-700 text-white rounded-lg text-sm font-bold btn-pulse">${t('playAgain')}</button>
@@ -4487,8 +4525,11 @@ function renderMyth() {
         <span class="text-xs font-bold text-field-accent bg-field-accent/10 px-2 py-1 rounded">${t('mythLabel')} <span dir="ltr">${state.mythIndex+1}/${MYTHS.length}</span></span>
         <span class="text-xs text-gray-400">${t('score')}: ${state.mythScore}</span>
       </div>
-      <div class="bg-field-800 border border-field-700 rounded-xl p-4 mb-4">
-        <p class="text-base font-bold text-white leading-snug">${m.text}</p>
+      <div class="bg-field-800 border border-field-700 rounded-xl overflow-hidden mb-4">
+        ${m.img ? `<div class="border-b border-field-700"><img src="${m.img}" alt="" class="w-full h-auto max-h-[220px] object-contain bg-field-900/40 block"></div>` : ''}
+        <div class="p-4">
+          <p class="text-base font-bold text-white leading-snug">${m.text}</p>
+        </div>
       </div>
       <div class="grid grid-cols-2 gap-3" id="mythBtns">
         <button onclick="answerMyth(true)" class="py-3.5 rounded-xl bg-field-700 text-white font-bold text-sm border border-field-600 hover:border-emerald-500/50 hover:bg-emerald-500/10 btn-pulse transition flex items-center justify-center gap-2">
@@ -4522,14 +4563,17 @@ function answerMyth(choice) {
       <span class="font-bold text-sm ${correct?'text-emerald-400':'text-field-danger'}">${correct?t('correct'):t('wrong')}</span>
     </div>
     <p class="text-xs text-gray-300 leading-relaxed">${m.explain}</p>
-    <button onclick="nextMyth()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${t('nextMyth')} <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    <button onclick="nextMyth()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${t('nextMyth')} <i class="fa-solid fa-arrow-right ms-1"></i></button>
   `;
   saveState();
 }
 function nextMyth() {
+  if (state._navLock) return;
+  state._navLock = true;
   state.mythIndex++;
   saveState();
   renderMyth();
+  setTimeout(() => state._navLock = false, 400);
 }
 
 /* ============================================================
@@ -4574,7 +4618,7 @@ function showExplanation(mode) {
   const field = `<div class="bg-field-800 border border-field-700 rounded-xl p-4 card-enter">
     <h3 class="font-bold text-amber-400 text-sm mb-2">${t('digitalRoughneck')}</h3>
     <p class="text-xs text-gray-300 leading-relaxed mb-2">${t('aiForFieldEngineer')}</p>
-    <ul class="text-xs text-gray-300 space-y-1 list-disc pl-4">
+    <ul class="text-xs text-gray-300 space-y-1 list-disc ps-4">
       <li>${t('watchesSensors')}</li>
       <li>${t('readsCamera')}</li>
       <li>${t('draftsReports')}</li>
@@ -4633,7 +4677,7 @@ function renderJargon() {
           </div>
         </div>
       </div>
-      <button onclick="nextJargon()" class="mt-4 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('nextTerm')} <i class="fa-solid fa-arrow-right ml-1"></i></button>
+      <button onclick="nextJargon()" class="mt-4 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('nextTerm')} <i class="fa-solid fa-arrow-right ms-1"></i></button>
     </div>
   `);
 }
@@ -4641,9 +4685,12 @@ function flipJargon() {
   document.getElementById('jargonCard').classList.toggle('flipped');
 }
 function nextJargon() {
+  if (state._navLock) return;
+  state._navLock = true;
   state.jargonIndex++;
   saveState();
   renderJargon();
+  setTimeout(() => state._navLock = false, 400);
 }
 
 /* ============================================================
@@ -4731,7 +4778,7 @@ function startSafetyQuiz() {
         <p class="text-sm text-gray-400 mt-1">${t('score')}: <span dir="ltr">${state.safetyScore}/${D(SAFETY_SCENARIOS, SAFETY_SCENARIOS_AR).length}</span></p>
         ${state.safetyScore >= 4 ? `<p class="text-xs text-emerald-400 mt-2 font-semibold">${t('safetyExpertBadgeEarned')}</p>` : ''}
         <button onclick="state.safetyIndex=0; state.safetyScore=0; saveState(); startSafetyQuiz();" class="mt-4 px-4 py-2 bg-field-700 text-white rounded-lg text-sm font-bold btn-pulse">${t('replayBtn')}</button>
-        <button onclick="downloadAIPocketCard()" class="mt-2 w-full py-3 bg-field-800 border border-field-accent/40 text-field-accent rounded-xl text-sm font-bold btn-pulse"><i class="fa-solid fa-download mr-1"></i> ${t('downloadPocketCard')}</button>
+        <button onclick="downloadAIPocketCard()" class="mt-2 w-full py-3 bg-field-800 border border-field-accent/40 text-field-accent rounded-xl text-sm font-bold btn-pulse"><i class="fa-solid fa-download me-1"></i> ${t('downloadPocketCard')}</button>
         <button onclick="markComplete('safety', state.safetyScore, 5); if (state.safetyScore>=4) awardBadge('safetyexpert', t('safetyExpertTitle')); addPoints(25, t('safetyExpert')); goMissions();" class="mt-2 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('finishMission')}</button>
       </div>
     `);
@@ -4775,14 +4822,17 @@ function answerSafety(choice) {
       <span class="font-bold text-sm ${correct?'text-emerald-400':'text-field-danger'}">${correct?t('correct'):t('wrong')}</span>
     </div>
     <p class="text-xs text-gray-300 leading-relaxed">${s.explain}</p>
-    <button onclick="nextSafety()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${t('nextScenario')} <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    <button onclick="nextSafety()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${t('nextScenario')} <i class="fa-solid fa-arrow-right ms-1"></i></button>
   `;
   saveState();
 }
 function nextSafety() {
+  if (state._navLock) return;
+  state._navLock = true;
   state.safetyIndex++;
   saveState();
   startSafetyQuiz();
+  setTimeout(() => state._navLock = false, 400);
 }
 
 /* ============================================================
@@ -4800,7 +4850,7 @@ function renderPrompt() {
         <textarea id="badPromptInput" rows="2" class="w-full bg-field-900 border border-field-700 rounded-lg p-2.5 text-sm text-gray-300 italic mt-3 placeholder-gray-500 focus:outline-none focus:border-field-accent resize-none">pump issue?</textarea>
       </div>
 
-      <button onclick="improvePrompt()" class="w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse mb-3">${t('improvePrompt')} <i class="fa-solid fa-wand-magic-sparkles ml-1"></i></button>
+      <button onclick="improvePrompt()" class="w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse mb-3">${t('improvePrompt')} <i class="fa-solid fa-wand-magic-sparkles ms-1"></i></button>
 
       <div id="promptGood" class="hidden">
         <div class="bg-field-800 border border-emerald-500/30 rounded-xl p-4 mb-3 relative overflow-hidden">
@@ -4889,8 +4939,8 @@ function renderAITools() {
       </div>
 
       <div class="grid grid-cols-2 gap-2 mb-3">
-        <button onclick="voteAITools(1)" ${voted ? 'disabled' : ''} class="py-3 bg-emerald-600 text-white rounded-xl text-sm font-black ${voted ? 'opacity-50 cursor-not-allowed' : 'btn-pulse'}">${t('yesVote')} <i class="fa-solid fa-check ml-1"></i></button>
-        <button onclick="voteAITools(0)" ${voted ? 'disabled' : ''} class="py-3 bg-field-danger text-white rounded-xl text-sm font-black ${voted ? 'opacity-50 cursor-not-allowed' : 'btn-pulse'}">${t('noVote')} <i class="fa-solid fa-xmark ml-1"></i></button>
+        <button onclick="voteAITools(1)" ${voted ? 'disabled' : ''} class="py-3 bg-emerald-600 text-white rounded-xl text-sm font-black ${voted ? 'opacity-50 cursor-not-allowed' : 'btn-pulse'}">${t('yesVote')} <i class="fa-solid fa-check ms-1"></i></button>
+        <button onclick="voteAITools(0)" ${voted ? 'disabled' : ''} class="py-3 bg-field-danger text-white rounded-xl text-sm font-black ${voted ? 'opacity-50 cursor-not-allowed' : 'btn-pulse'}">${t('noVote')} <i class="fa-solid fa-xmark ms-1"></i></button>
       </div>
 
       <button id="aitoolsNext" onclick="nextAITools()" class="w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black ${voted ? 'btn-pulse' : 'hidden'}">${idx + 1 >= scenarios.length ? t('finishMission') : t('nextScenario')}</button>
@@ -4907,6 +4957,8 @@ function voteAITools(vote) {
   renderAITools();
 }
 function nextAITools() {
+  if (state._navLock) return;
+  state._navLock = true;
   const scenarios = D(AI_TOOLS_SCENARIOS, AI_TOOLS_SCENARIOS_AR);
   const idx = (state.aitoolsIndex || 0);
   if (idx + 1 >= scenarios.length) {
@@ -4919,6 +4971,7 @@ function nextAITools() {
     saveState();
     renderAITools();
   }
+  setTimeout(() => state._navLock = false, 400);
 }
 
 /* ============================================================
@@ -4939,8 +4992,8 @@ function renderGroup() {
       <div id="groupVote" class="hidden">
         <p class="text-xs text-gray-400 text-center mb-2">${t('useThisQ')}</p>
         <div class="grid grid-cols-2 gap-3">
-          <button onclick="voteGroup(true)" class="py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-xs btn-pulse"><i class="fa-solid fa-thumbs-up mr-1"></i> ${t('yes')}</button>
-          <button onclick="voteGroup(false)" class="py-2.5 rounded-xl bg-field-danger/10 border border-field-danger/30 text-field-danger font-bold text-xs btn-pulse"><i class="fa-solid fa-thumbs-down mr-1"></i> ${t('no')}</button>
+          <button onclick="voteGroup(true)" ${state.groupVoted ? 'disabled' : ''} class="py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-xs ${state.groupVoted ? 'opacity-50 cursor-not-allowed' : 'btn-pulse'}"><i class="fa-solid fa-thumbs-up me-1"></i> ${t('yes')}</button>
+          <button onclick="voteGroup(false)" ${state.groupVoted ? 'disabled' : ''} class="py-2.5 rounded-xl bg-field-danger/10 border border-field-danger/30 text-field-danger font-bold text-xs ${state.groupVoted ? 'opacity-50 cursor-not-allowed' : 'btn-pulse'}"><i class="fa-solid fa-thumbs-down me-1"></i> ${t('no')}</button>
         </div>
       </div>
       <button id="groupDone" onclick="markComplete('group'); awardBadge('fieldai', t('fieldAIOperatorTitle')); addPoints(20, t('teamChallengeDonePts')); goMissions();" class="w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse hidden mt-3">${t('completeMission')}</button>
@@ -4955,10 +5008,11 @@ function generateGroupPrompt() {
   const done = document.getElementById('groupDone');
   out.classList.remove('hidden');
   out.classList.add('card-enter');
+  const safeVal = escHtml(val);
   out.innerHTML = `
     <div class="bg-field-800 border border-emerald-500/30 rounded-xl p-4">
       <div class="text-[10px] font-bold text-emerald-400 mb-2 uppercase">${t('aiOptimized')}</div>
-      <p class="text-xs text-gray-300 leading-relaxed">"${t('aiOptimizedPromptText', {val})}"</p>
+      <p class="text-xs text-gray-300 leading-relaxed">"${escHtml(t('aiOptimizedPromptText', {val: safeVal}))}"</p>
     </div>
   `;
   vote.classList.remove('hidden');
@@ -4966,8 +5020,12 @@ function generateGroupPrompt() {
   done.classList.remove('hidden');
 }
 function voteGroup(yes) {
+  if (state.groupVoted) return;
+  state.groupVoted = true;
+  saveState();
   if (yes) addPoints(5, t('peerVoteYes'));
   showToast(yes ? t('thanksForVote') : t('notedRefine'), 'info');
+  renderGroup();
 }
 
 /* ============================================================
@@ -4992,7 +5050,7 @@ function renderWish() {
           ${state.wishes.map((w, i) => `
             <div class="bg-field-800 border ${i<3?'border-field-accent/40':'border-field-700'} rounded-lg p-2.5 flex items-start gap-2">
               <span class="text-[10px] font-black ${i<3?'text-field-accent':'text-gray-500'} bg-field-700 w-5 h-5 rounded flex items-center justify-center shrink-0">${i+1}</span>
-              <p class="text-xs text-gray-300">${w}</p>
+              <p class="text-xs text-gray-300">${escHtml(w)}</p>
             </div>
           `).join('')}
         </div>
@@ -5085,14 +5143,17 @@ function answerAIorHuman(choice) {
       <span class="font-bold text-sm ${correct?'text-emerald-400':'text-field-danger'}">${correct?t('correct') : t('wrong')} — ${s.humanOrAi}</span>
     </div>
     <p class="text-xs text-gray-300 leading-relaxed">${s.explain}</p>
-    <button onclick="nextAIorHuman()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${t('nextBtn')} <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    <button onclick="nextAIorHuman()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${t('nextBtn')} <i class="fa-solid fa-arrow-right ms-1"></i></button>
   `;
   saveState();
 }
 function nextAIorHuman() {
+  if (state._navLock) return;
+  state._navLock = true;
   state.aiorhumanIndex++;
   saveState();
   renderAIorHuman();
+  setTimeout(() => state._navLock = false, 400);
 }
 
 /* ============================================================
@@ -5153,7 +5214,7 @@ function renderSpeedRound() {
         <p class="text-xs text-gray-400">${t('secondsRemaining')}</p>
       </div>
       <button onclick="startSpeedRound()" class="w-full py-4 bg-field-accent text-field-900 rounded-xl text-base font-black btn-pulse" id="speedStartBtn">
-        <i class="fa-solid fa-bolt mr-2"></i> Start
+        <i class="fa-solid fa-bolt me-2"></i> Start
       </button>
       <div id="speedGame" class="hidden"></div>
       <div id="speedResult" class="hidden"></div>
@@ -5300,7 +5361,7 @@ function renderFinal() {
           <i class="fa-solid ${passed?'fa-trophy':'fa-circle-xmark'}"></i>
         </div>
         <h2 class="text-lg font-black text-white">${passed?t('passed'):t('notYet')}</h2>
-        <p class="text-sm text-gray-400 mt-1">${t('score')}: <span dir="ltr"><span dir="ltr">${state.quizScore}/${D(QUIZ, QUIZ_AR).length}</span></span></p>
+        <p class="text-sm text-gray-400 mt-1">${t('score')}: <span dir="ltr">${state.quizScore}/${D(QUIZ, QUIZ_AR).length}</span></p>
         <p class="text-xs ${passed?'text-emerald-400':'text-field-danger'} mt-1 font-semibold">${passed?t('workshopComplete'):t('needMore')}</p>
         ${passed ? '' : `
           <button onclick="state.quizIndex=0; state.quizScore=0; saveState(); renderFinal();" class="mt-4 w-full py-3 bg-field-accent text-field-900 rounded-xl text-sm font-black btn-pulse">${t('retryQuiz')}</button>
@@ -5310,7 +5371,8 @@ function renderFinal() {
     `);
     return;
   }
-  const q = D(QUIZ, QUIZ_AR)[state.quizIndex];
+  state.currentQuizQ = getShuffledQuestion(state.quizIndex);
+  const q = state.currentQuizQ;
   setView(`${backBtn()}
     <div class="card-enter">
       <div class="flex items-center gap-2 mb-3">
@@ -5332,7 +5394,8 @@ function renderFinal() {
 function answerQuiz(choice) {
   const btns = document.getElementById('quizBtns');
   if (btns) btns.style.display = 'none';
-  const q = D(QUIZ, QUIZ_AR)[state.quizIndex];
+  const q = state.currentQuizQ;
+  if (!q) { renderFinal(); return; }
   const correct = choice === q.a;
   playSound(correct ? 'correct' : 'wrong');
   if (correct) { state.quizScore++; addPoints(10, t('correctQuiz')); }
@@ -5345,14 +5408,17 @@ function answerQuiz(choice) {
       <span class="font-bold text-sm ${correct?'text-emerald-400':'text-field-danger'}">${correct?t('correct'):t('wrong')}</span>
     </div>
     <p class="text-xs text-gray-300 leading-relaxed">${q.explain}</p>
-    <button onclick="nextQuiz()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${state.quizIndex+1 >= D(QUIZ, QUIZ_AR).length ? t('seeResults') : t('nextQuestion')} <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    <button onclick="nextQuiz()" class="mt-3 w-full py-2.5 bg-field-accent text-field-900 rounded-lg text-sm font-black btn-pulse">${state.quizIndex+1 >= D(QUIZ, QUIZ_AR).length ? t('seeResults') : t('nextQuestion')} <i class="fa-solid fa-arrow-right ms-1"></i></button>
   `;
   saveState();
 }
 function nextQuiz() {
+  if (state._navLock) return;
+  state._navLock = true;
   state.quizIndex++;
   saveState();
   renderFinal();
+  setTimeout(() => state._navLock = false, 400);
 }
 
 
