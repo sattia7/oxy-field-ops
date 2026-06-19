@@ -9,15 +9,11 @@
   ],
   "routes": [
     {
-      "src": "\/(m1-q[1-8].png|oxy-logo.svg|slb-logo.svg|File_OXY_LOGO.svg|SLB_Logo_2022.svg|favicon.ico)",
-      "dest": "\/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=86400"
-      }
+      "handle": "filesystem"
     },
     {
-      "src": "\/(.*)",
-      "dest": "\/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
