@@ -1619,10 +1619,12 @@ function clearMissionLock(missionId) {
   if (state.view === 'home' || state.view === 'missions') goMissions();
 }
 function unlockAllMissions() {
+  console.log('[Trainer] unlockAllMissions() clicked');
   const locks = getMissionLocks();
   const group = getActiveGroup();
   if (!locks[group?.id]) locks[group.id] = {};
   MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks[group.id][id] = 'unlocked'; });
+  console.log('[Trainer] Setting locks for group', group?.id, ':', locks[group?.id]);
   setMissionLocks(locks);
   showToast(t('allMissionsUnlocked'), 'success');
   renderTrainerControls();
@@ -1732,6 +1734,7 @@ let syncListeners = [];      // Track active listeners for cleanup
 const DB_ROOT = 'oxy_field_ops';
 
 function initSync() {
+  console.log('[Sync] initSync() called, readyState:', document.readyState);
   // Skip if placeholder config
   if (!FIREBASE_CONFIG.apiKey || FIREBASE_CONFIG.apiKey.indexOf('YOUR') === 0) {
     console.log('[Sync] Firebase not configured — local-only mode');
@@ -1745,6 +1748,22 @@ function initSync() {
 
     // Pull remote data on startup (merge into localStorage)
     pullAllRemoteData();
+
+    // Real-time listener for missionLocks so trainers' changes propagate instantly
+    const missionLocksRef = db.ref(`${DB_ROOT}/missionLocks`);
+    missionLocksRef.on('value', snap => {
+      const val = snap.val();
+      console.log('[Sync] missionLocks listener fired, val:', val);
+      if (val !== null && val !== undefined) {
+        localStorage.setItem('aiFieldOpsMissionLocks', JSON.stringify(val));
+        console.log('[Sync] Real-time missionLocks updated');
+        // Refresh UI if user is on missions view so they see lock changes immediately
+        if (state.view === 'home' || state.view === 'missions' || state.view === 'trainer') {
+          if (state.view === 'trainer') renderTrainerDashboard(); else goMissions();
+        }
+      }
+    });
+    syncListeners.push(() => missionLocksRef.off());
   } catch(e) {
     console.error('[Sync] Firebase init failed:', e);
   }
@@ -1752,8 +1771,8 @@ function initSync() {
 
 function pullAllRemoteData() {
   if (!db) return;
-  const paths = ['users','states','activeGroup','activities','archivedGroups'];
-  const lsKeys = ['aiFieldOpsUsers','aiFieldOpsStates','aiFieldOpsActiveGroup','aiFieldOpsActivities','aiFieldOpsArchivedGroups'];
+  const paths = ['users','states','activeGroup','activities','archivedGroups','missionLocks'];
+  const lsKeys = ['aiFieldOpsUsers','aiFieldOpsStates','aiFieldOpsActiveGroup','aiFieldOpsActivities','aiFieldOpsArchivedGroups','aiFieldOpsMissionLocks'];
   paths.forEach((path, i) => {
     db.ref(`${DB_ROOT}/${path}`).once('value').then(snap => {
       const val = snap.val();
@@ -1766,8 +1785,13 @@ function pullAllRemoteData() {
 }
 
 function syncPush(path, data) {
-  if (!syncEnabled || !db || syncPaused) return;
-  db.ref(`${DB_ROOT}/${path}`).set(data).catch(() => {});
+  if (!syncEnabled || !db || syncPaused) {
+    console.log(`[Sync] Push skipped for ${path}: syncEnabled=${syncEnabled}, db=${!!db}, syncPaused=${syncPaused}`);
+    return;
+  }
+  db.ref(`${DB_ROOT}/${path}`).set(data)
+    .then(() => console.log(`[Sync] Pushed ${path}`))
+    .catch(err => console.error(`[Sync] Push failed for ${path}:`, err));
 }
 
 function pullRemoteData(callback) {
@@ -1778,7 +1802,8 @@ function pullRemoteData(callback) {
     { path: 'states', lsKey: 'aiFieldOpsStates' },
     { path: 'activeGroup', lsKey: 'aiFieldOpsActiveGroup' },
     { path: 'activities', lsKey: 'aiFieldOpsActivities' },
-    { path: 'archivedGroups', lsKey: 'aiFieldOpsArchivedGroups' }
+    { path: 'archivedGroups', lsKey: 'aiFieldOpsArchivedGroups' },
+    { path: 'missionLocks', lsKey: 'aiFieldOpsMissionLocks' }
   ];
   let completed = 0;
   paths.forEach(item => {
@@ -1801,7 +1826,11 @@ function pullRemoteData(callback) {
 }
 
 // Auto-init after DOM ready
-window.addEventListener('DOMContentLoaded', initSync);
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initSync);
+} else {
+  initSync();
+}
 
 /* ============================================================
    ACTIVITY LOG
