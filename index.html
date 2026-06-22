@@ -1619,16 +1619,23 @@ function clearMissionLock(missionId) {
   if (state.view === 'home' || state.view === 'missions') goMissions();
 }
 function unlockAllMissions() {
-  console.log('[Trainer] unlockAllMissions() clicked');
-  const locks = getMissionLocks();
-  const group = getActiveGroup();
-  if (!locks[group?.id]) locks[group.id] = {};
-  MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks[group.id][id] = 'unlocked'; });
-  console.log('[Trainer] Setting locks for group', group?.id, ':', locks[group?.id]);
-  setMissionLocks(locks);
-  showToast(t('allMissionsUnlocked'), 'success');
-  renderTrainerControls();
-  if (state.view === 'home' || state.view === 'missions') goMissions();
+  try {
+    console.log('[Trainer] unlockAllMissions() clicked');
+    const locks = getMissionLocks();
+    const group = getActiveGroup();
+    console.log('[Trainer] Active group:', group);
+    if (!group || !group.id) { showToast('No active group selected', 'error'); return; }
+    if (!locks[group.id]) locks[group.id] = {};
+    MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks[group.id][id] = 'unlocked'; });
+    console.log('[Trainer] Setting locks for group', group.id, ':', locks[group.id]);
+    setMissionLocks(locks);
+    showToast(t('allMissionsUnlocked'), 'success');
+    renderTrainerControls();
+    if (state.view === 'home' || state.view === 'missions') goMissions();
+  } catch(err) {
+    console.error('[Trainer] unlockAllMissions() ERROR:', err);
+    showToast('Unlock failed: ' + err.message, 'error');
+  }
 }
 function lockAllMissions() {
   const locks = getMissionLocks();
