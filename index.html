@@ -1598,22 +1598,23 @@ function setMissionLocks(locks) {
 }
 function getEffectiveLock(missionId) {
   const locks = getMissionLocks();
+  // Global locks apply to ALL groups so trainers' changes propagate everywhere
+  if (locks._global && locks._global[missionId]) return locks._global[missionId];
+  // Legacy fallback: per-group locks
   const group = getActiveGroup();
   return locks[group?.id] ? locks[group.id][missionId] : undefined;
 }
 function setMissionLock(missionId, status) {
   const locks = getMissionLocks();
-  const group = getActiveGroup();
-  if (!locks[group?.id]) locks[group.id] = {};
-  locks[group.id][missionId] = status;
+  if (!locks._global) locks._global = {};
+  locks._global[missionId] = status;
   setMissionLocks(locks);
   showToast(t('missionLockUpdated') || 'Mission lock updated', 'success');
   if (state.view === 'home' || state.view === 'missions') goMissions();
 }
 function clearMissionLock(missionId) {
   const locks = getMissionLocks();
-  const group = getActiveGroup();
-  if (locks[group?.id]) delete locks[group.id][missionId];
+  if (locks._global) delete locks._global[missionId];
   setMissionLocks(locks);
   showToast(t('missionLockCleared') || 'Mission lock cleared', 'success');
   if (state.view === 'home' || state.view === 'missions') goMissions();
@@ -1622,12 +1623,9 @@ function unlockAllMissions() {
   try {
     console.log('[Trainer] unlockAllMissions() clicked');
     const locks = getMissionLocks();
-    const group = getActiveGroup();
-    console.log('[Trainer] Active group:', group);
-    if (!group || !group.id) { showToast('No active group selected', 'error'); return; }
-    if (!locks[group.id]) locks[group.id] = {};
-    MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks[group.id][id] = 'unlocked'; });
-    console.log('[Trainer] Setting locks for group', group.id, ':', locks[group.id]);
+    if (!locks._global) locks._global = {};
+    MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks._global[id] = 'unlocked'; });
+    console.log('[Trainer] Setting global locks:', locks._global);
     setMissionLocks(locks);
     showToast(t('allMissionsUnlocked'), 'success');
     renderTrainerControls();
@@ -1639,9 +1637,8 @@ function unlockAllMissions() {
 }
 function lockAllMissions() {
   const locks = getMissionLocks();
-  const group = getActiveGroup();
-  if (!locks[group?.id]) locks[group.id] = {};
-  MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks[group.id][id] = 'locked'; });
+  if (!locks._global) locks._global = {};
+  MISSION_ORDER.filter(id => id !== 'final').forEach(id => { locks._global[id] = 'locked'; });
   setMissionLocks(locks);
   showToast(t('allMissionsLocked'), 'info');
   renderTrainerControls();
