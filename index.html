@@ -1653,6 +1653,50 @@ function forceCompleteAll() {
   if (state.view === 'home' || state.view === 'missions') goMissions();
 }
 
+function manualSyncPull() {
+  console.log('[Sync] Manual sync pull triggered');
+  if (!db) { showToast('Firebase not connected', 'error'); return; }
+  db.ref(`${DB_ROOT}/missionLocks`).once('value').then(snap => {
+    const val = snap.val();
+    console.log('[Sync] manualSyncPull received:', val);
+    if (val !== null && val !== undefined) {
+      localStorage.setItem('aiFieldOpsMissionLocks', JSON.stringify(val));
+      showToast('Mission locks synced from cloud!', 'success');
+      if (state.view === 'home' || state.view === 'missions') goMissions();
+    } else {
+      showToast('No missionLocks found in cloud', 'info');
+    }
+  }).catch(err => {
+    console.error('[Sync] manualSyncPull failed:', err);
+    showToast('Sync failed: ' + err.message, 'error');
+  });
+}
+
+function testFirebaseWrite() {
+  console.log('[Sync] Testing Firebase write...');
+  if (!db) { showToast('Firebase not connected', 'error'); return; }
+  const testData = { _test: { timestamp: Date.now(), device: navigator.userAgent.slice(0,50) } };
+  db.ref(`${DB_ROOT}/_testWrite`).set(testData)
+    .then(() => {
+      console.log('[Sync] Test write succeeded');
+      showToast('Test write OK! Now reading back...', 'success');
+      return db.ref(`${DB_ROOT}/_testWrite`).once('value');
+    })
+    .then(snap => {
+      const val = snap.val();
+      console.log('[Sync] Test read back:', val);
+      if (val && val._test) {
+        showToast('Firebase read/write WORKING!', 'success');
+      } else {
+        showToast('Firebase write worked but read returned null', 'warning');
+      }
+    })
+    .catch(err => {
+      console.error('[Sync] Test write FAILED:', err);
+      showToast('Firebase write FAILED: ' + (err.message || 'Unknown error'), 'error');
+    });
+}
+
 function archiveCurrentGroup() {
   const users = getUsers();
   const activeGroup = getActiveGroup();
@@ -3883,6 +3927,10 @@ function renderTrainerControls() {
         <button onclick="forceCompleteAll()" class="flex-1 py-2 bg-field-accent text-field-900 rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-check-double me-1"></i> ${t('forceCompleteAllBtn')}</button>
         <button onclick="unlockAllMissions()" class="flex-1 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock-open me-1"></i> ${t('forceUnlock')} ${t('all')}</button>
         <button onclick="lockAllMissions()" class="flex-1 py-2 bg-field-danger text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-lock me-1"></i> ${t('forceLock')} ${t('all')}</button>
+      </div>
+      <div class="flex gap-2 mb-2">
+        <button onclick="manualSyncPull()" class="flex-1 py-2 bg-sky-600 text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-rotate me-1"></i> Sync Now (Pull from Cloud)</button>
+        <button onclick="testFirebaseWrite()" class="flex-1 py-2 bg-amber-600 text-white rounded-xl text-xs font-black btn-pulse"><i class="fa-solid fa-bug me-1"></i> Test Firebase Write</button>
       </div>
       <div class="grid gap-2">
         ${missions.map(id => {
